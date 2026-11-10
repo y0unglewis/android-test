@@ -1,48 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="16dp"
-    android:background="@drawable/bg_product_card">
+    android:padding="6dp">
 
-    <TextView
-        android:id="@+id/tvProductName"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Tên sản phẩm"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:textColor="#262626" />
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:padding="12dp"
+        android:background="@drawable/bg_product_card">
 
-    <TextView
-        android:id="@+id/tvProductOrigin"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="Xuất xứ"
-        android:textSize="14sp"
-        android:textColor="#666666" />
+        <!-- Icon trái cây -->
+        <TextView
+            android:id="@+id/tvProductIcon"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:gravity="center"
+            android:text="🍎"
+            android:textSize="28sp"
+            android:background="@drawable/bg_fruit_icon" />
 
-    <TextView
-        android:id="@+id/tvProductDescription"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="Mô tả sản phẩm"
-        android:textSize="14sp"
-        android:textColor="#444444" />
+        <!-- Thông tin sản phẩm -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="12dp"
+            android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/tvProductPrice"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:text="0 đ/kg"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:textColor="#B44E4E" />
+            <TextView
+                android:id="@+id/tvProductName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Tên sản phẩm"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="#262626" />
+
+            <TextView
+                android:id="@+id/tvProductOrigin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="Xuất xứ"
+                android:textSize="13sp"
+                android:textColor="#777777" />
+
+            <TextView
+                android:id="@+id/tvProductDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="Mô tả sản phẩm"
+                android:textSize="13sp"
+                android:textColor="#444444" />
+
+            <TextView
+                android:id="@+id/tvProductPrice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="0 đ/kg"
+                android:textSize="17sp"
+                android:textStyle="bold"
+                android:textColor="#B44E4E" />
+
+        </LinearLayout>
+
+    </LinearLayout>
 
 </LinearLayout>

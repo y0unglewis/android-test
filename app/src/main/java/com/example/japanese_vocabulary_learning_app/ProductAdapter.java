@@ -47,8 +47,12 @@ public class ProductAdapter extends ArrayAdapter<Product> {
         TextView tvPrice =
                 itemView.findViewById(R.id.tvProductPrice);
 
+        TextView tvIcon =
+                itemView.findViewById(R.id.tvProductIcon);
+
         // Đổ dữ liệu vào từng TextView
         if (product != null) {
+            tvIcon.setText(product.getIcon());
 
             tvName.setText(product.getName());
 
@@ -67,6 +71,7 @@ public class ProductAdapter extends ArrayAdapter<Product> {
             );
 
             tvPrice.setText(price);
+
         }
 
         return itemView;
