@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:orientation="vertical"
+    android:padding="16dp" android:background="#FFFAF7"
+    android:fitsSystemWindows="true">
+
+    <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:text="Home • Danh sách trái cây" android:textSize="23sp"
+        android:textStyle="bold" android:textColor="#292323"
+        android:layout_marginBottom="12dp" />
+
+    <Button android:id="@+id/btnOpenProducts" android:layout_width="match_parent"
+        android:layout_height="wrap_content" android:text="Xem thông tin sản phẩm" />
+
+    <ListView android:id="@+id/listView" android:layout_width="match_parent"
+        android:layout_height="0dp" android:layout_weight="1" />
+
+    <Button android:id="@+id/btnLogout" android:layout_width="match_parent"
+        android:layout_height="wrap_content" android:text="Đăng xuất" />
+</LinearLayout>
