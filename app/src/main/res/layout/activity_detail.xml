@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Detail có danh sách Product qua Custom Adapter và nút quay về Home. -->
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -17,6 +18,7 @@
         android:paddingHorizontal="18dp"
         android:paddingTop="18dp"
         android:paddingBottom="10dp">
+        <!-- Nút này gọi finish() để quay về màn hình trước. -->
         <ImageButton
             android:id="@+id/btnBackHome"
             android:layout_width="48dp"
@@ -63,6 +65,7 @@
             android:textColor="@color/brand_primary"
             android:textStyle="bold"
             android:textSize="14sp" />
+        <!-- Java điền số sản phẩm dựa trên products.size(). -->
         <TextView
             android:id="@+id/tvProductCount"
             android:layout_width="wrap_content"
@@ -72,6 +75,7 @@
             android:textSize="13sp" />
     </LinearLayout>
 
+    <!-- Mỗi dòng được ProductAdapter tạo từ item_product.xml. -->
     <ListView
         android:id="@+id/listViewProducts"
         android:layout_width="match_parent"
@@ -83,6 +87,7 @@
         android:divider="@android:color/transparent"
         android:dividerHeight="0dp" />
 
+    <!-- Tab Sản phẩm đang chọn; chọn Home sẽ quay về HomeActivity. -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNav"
         android:layout_width="match_parent"

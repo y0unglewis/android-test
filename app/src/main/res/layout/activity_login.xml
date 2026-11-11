@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Login: ScrollView giúp nội dung cuộn khi bàn phím mở hoặc màn hình nhỏ. -->
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
@@ -60,6 +61,7 @@
                 android:textSize="14sp"
                 android:textColor="@color/text_primary"
                 android:layout_marginBottom="8dp" />
+            <!-- Java đọc giá trị username từ EditText bằng getText(). -->
             <EditText
                 android:id="@+id/edtUsername"
                 android:layout_width="match_parent"
@@ -82,6 +84,7 @@
                 android:textStyle="bold"
                 android:textSize="14sp"
                 android:textColor="@color/text_primary" />
+            <!-- textPassword thiết lập ô nhập mật khẩu, không tự lưu mật khẩu. -->
             <EditText
                 android:id="@+id/edtPassword"
                 android:layout_width="match_parent"
@@ -95,6 +98,7 @@
                 android:textColorHint="@color/text_secondary"
                 android:autofillHints="password" />
 
+            <!-- LoginActivity đăng ký setOnClickListener() để xử lý đăng nhập. -->
             <Button
                 android:id="@+id/btnLogin"
                 android:layout_width="match_parent"
@@ -128,6 +132,7 @@
                 android:text="Chưa có tài khoản?  "
                 android:textSize="14sp"
                 android:textColor="@color/text_secondary" />
+            <!-- Nhấn TextView này sẽ mở RegisterActivity bằng Intent. -->
             <TextView
                 android:id="@+id/tvGoRegister"
                 android:layout_width="wrap_content"

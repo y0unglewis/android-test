@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Nền ô nhập: màu nền, viền và bán kính bo góc được khai báo tại đây. -->
 <shape
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="rectangle">

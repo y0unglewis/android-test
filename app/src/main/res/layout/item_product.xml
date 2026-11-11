@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Một layout MẪU được ListView tái sử dụng để hiển thị nhiều sản phẩm. -->
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
@@ -15,6 +16,7 @@
         android:background="@drawable/bg_product_card"
         android:elevation="2dp">
 
+        <!-- ImageView hiển thị drawable từ product.getImageResId() bằng setImageResource(). -->
         <ImageView
             android:id="@+id/imgProduct"
             android:layout_width="86dp"
@@ -32,6 +34,7 @@
             android:layout_marginStart="14dp"
             android:orientation="vertical">
 
+            <!-- Adapter dùng setText() để đặt tên sản phẩm. -->
             <TextView
                 android:id="@+id/tvProductName"
                 android:layout_width="match_parent"
@@ -40,6 +43,7 @@
                 android:textStyle="bold"
                 android:textSize="18sp"
                 android:textColor="@color/text_primary" />
+            <!-- Adapter ghép chữ Xuất xứ với product.getOrigin(). -->
             <TextView
                 android:id="@+id/tvProductOrigin"
                 android:layout_width="match_parent"
@@ -48,6 +52,7 @@
                 android:text="Xuất xứ"
                 android:textSize="12sp"
                 android:textColor="@color/brand_primary" />
+            <!-- maxLines và ellipsize giới hạn mô tả quá dài. -->
             <TextView
                 android:id="@+id/tvProductDescription"
                 android:layout_width="match_parent"
@@ -59,6 +64,7 @@
                 android:lineSpacingExtra="2dp"
                 android:textSize="13sp"
                 android:textColor="@color/text_secondary" />
+            <!-- Adapter format giá theo Locale vi-VN rồi gán cho TextView. -->
             <TextView
                 android:id="@+id/tvProductPrice"
                 android:layout_width="match_parent"

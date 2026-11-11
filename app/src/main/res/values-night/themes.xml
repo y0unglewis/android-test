@@ -1,3 +1,4 @@
+<!-- Theme ban đêm đang dùng cùng cấu hình màu với theme bình thường. -->
 <resources xmlns:tools="http://schemas.android.com/tools">
     <style name="Base.Theme.Japanesevocabularylearningapp" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="colorPrimary">@color/brand_primary</item>

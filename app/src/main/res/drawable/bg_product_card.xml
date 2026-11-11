@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Shape XML xác định nền, góc bo và đường viền cho từng thẻ sản phẩm. -->
 <shape
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="rectangle">

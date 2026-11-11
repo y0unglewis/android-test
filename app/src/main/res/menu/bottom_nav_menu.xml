@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Menu định nghĩa hai tab; xử lý chuyển Activity nằm trong Java. -->
 <menu
     xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- ID được so sánh trong setOnItemSelectedListener(). -->
     <item
         android:id="@+id/nav_home"
         android:icon="@drawable/ic_nav_home"
         android:title="@string/nav_home" />
+    <!-- Chọn tab này ở Home sẽ mở DetailActivity. -->
     <item
         android:id="@+id/nav_products"
         android:icon="@drawable/ic_nav_products"
