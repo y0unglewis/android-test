@@ -2,4 +2,14 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="brand_primary">#286D51</color>
+    <color name="brand_dark">#1A533D</color>
+    <color name="page_background">#F7F8F4</color>
+    <color name="surface_white">#FFFFFF</color>
+    <color name="text_primary">#23352B</color>
+    <color name="text_secondary">#687A70</color>
+    <color name="line_soft">#DAE6DD</color>
+    <color name="nav_indicator">#D9ECDD</color>
+    <color name="price_color">#C05534</color>
+    <color name="icon_background">#ECF6EB</color>
 </resources>

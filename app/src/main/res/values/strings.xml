@@ -2,4 +2,7 @@
 <resources>
     <string name="app_name">Fruit Catalog Demo</string>
     <string name="product_image_description">Hình ảnh sản phẩm</string>
+    <string name="action_back">Quay lại</string>
+    <string name="nav_home">Trang chủ</string>
+    <string name="nav_products">Sản phẩm</string>
 </resources>

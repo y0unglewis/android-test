@@ -1,18 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/main" android:layout_width="match_parent"
     android:layout_height="match_parent" android:orientation="vertical"
-    android:padding="12dp" android:background="#FFFFFF"
-    android:fitsSystemWindows="true">
+    android:background="@color/page_background" android:fitsSystemWindows="true">
 
-    <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
-        android:text="Detail • Danh sách sản phẩm" android:textSize="23sp"
-        android:textStyle="bold" android:textColor="#222222" android:layout_marginBottom="8dp" />
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:orientation="horizontal" android:gravity="center_vertical"
+        android:paddingHorizontal="18dp" android:paddingTop="18dp" android:paddingBottom="10dp">
+        <ImageButton android:id="@+id/btnBackHome" android:layout_width="48dp"
+            android:layout_height="48dp" android:background="@drawable/bg_top_button"
+            android:src="@drawable/ic_arrow_back" android:scaleType="centerInside"
+            android:contentDescription="@string/action_back"/>
+        <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
+            android:layout_weight="1" android:layout_marginStart="14dp"
+            android:orientation="vertical">
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:text="Chi tiết sản phẩm" android:textStyle="bold"
+                android:textSize="23sp" android:textColor="@color/text_primary"/>
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="Thông tin các loại trái cây trong danh sách"
+                android:textSize="12sp" android:textColor="@color/text_secondary"/>
+        </LinearLayout>
+    </LinearLayout>
 
-    <Button android:id="@+id/btnBackHome" android:layout_width="wrap_content"
-        android:layout_height="wrap_content" android:text="← Về Home" />
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp" android:layout_marginVertical="10dp"
+        android:orientation="horizontal" android:gravity="center_vertical">
+        <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+            android:layout_weight="1" android:text="Trái cây tươi"
+            android:textColor="@color/brand_primary" android:textStyle="bold"
+            android:textSize="14sp"/>
+        <TextView android:id="@+id/tvProductCount" android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:text="15 loại trái cây"
+            android:textColor="@color/text_secondary" android:textSize="13sp"/>
+    </LinearLayout>
 
     <ListView android:id="@+id/listViewProducts" android:layout_width="match_parent"
         android:layout_height="0dp" android:layout_weight="1"
-        android:divider="@android:color/transparent" android:dividerHeight="0dp" />
+        android:paddingHorizontal="12dp" android:paddingBottom="12dp"
+        android:clipToPadding="false" android:divider="@android:color/transparent"
+        android:dividerHeight="0dp"/>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNav" android:layout_width="match_parent"
+        android:layout_height="wrap_content" android:minHeight="64dp"
+        android:background="@color/surface_white" android:elevation="8dp"
+        app:menu="@menu/bottom_nav_menu" app:labelVisibilityMode="labeled"
+        app:itemIconTint="@color/nav_item_tint" app:itemTextColor="@color/nav_item_tint"/>
 </LinearLayout>
