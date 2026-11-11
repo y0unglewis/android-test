@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ripple xmlns:android="http://schemas.android.com/apk/res/android" android:color="#C6E1D1">
+<!-- Ripple giúp nút Back có hiệu ứng nhấn. -->
+<ripple
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="#C6E1D1">
     <item>
-        <shape android:shape="rectangle">
-            <solid android:color="#E7F1E9"/>
-            <corners android:radius="14dp"/>
+        <shape
+            android:shape="rectangle">
+            <solid
+                android:color="#E7F1E9" />
+            <corners
+                android:radius="14dp" />
         </shape>
     </item>
 </ripple>
