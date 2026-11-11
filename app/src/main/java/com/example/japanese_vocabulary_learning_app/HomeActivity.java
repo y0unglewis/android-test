@@ -6,6 +6,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import androidx.appcompat.app.AppCompatActivity;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class HomeActivity extends AppCompatActivity {
     @Override
@@ -20,10 +21,9 @@ public class HomeActivity extends AppCompatActivity {
         listView.setAdapter(adapter);
 
         Button btnOpenProducts = findViewById(R.id.btnOpenProducts);
-        btnOpenProducts.setOnClickListener(v ->
-                startActivity(new Intent(this, DetailActivity.class)));
+        btnOpenProducts.setOnClickListener(v -> openProducts(-1));
         listView.setOnItemClickListener((parent, view, position, id) ->
-                startActivity(new Intent(this, DetailActivity.class)));
+                openProducts(position));
 
         Button btnLogout = findViewById(R.id.btnLogout);
         btnLogout.setOnClickListener(v -> {
@@ -31,5 +31,23 @@ public class HomeActivity extends AppCompatActivity {
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
         });
+
+        BottomNavigationView bottomNav = findViewById(R.id.bottomNav);
+        bottomNav.setSelectedItemId(R.id.nav_home);
+        bottomNav.setOnItemSelectedListener(item -> {
+            if (item.getItemId() == R.id.nav_products) {
+                openProducts(-1);
+                return true;
+            }
+            return item.getItemId() == R.id.nav_home;
+        });
+    }
+
+    private void openProducts(int position) {
+        Intent intent = new Intent(this, DetailActivity.class);
+        if (position >= 0) {
+            intent.putExtra("selected_position", position);
+        }
+        startActivity(intent);
     }
 }
