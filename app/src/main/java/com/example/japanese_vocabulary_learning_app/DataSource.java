@@ -2,7 +2,9 @@ package com.example.japanese_vocabulary_learning_app;
 
 import java.util.ArrayList;
 
+// Dữ liệu mẫu viết sẵn, chưa sử dụng cơ sở dữ liệu hoặc mạng.
 public class DataSource {
+    // Trang Home chỉ dùng tên nên trả mảng String cho ArrayAdapter.
     public static String[] getItems() {
         return new String[] {
             "Apple", "Banana", "Cherry", "Chà là (Date)", "Nho (Grapes)",
@@ -11,13 +13,16 @@ public class DataSource {
         };
     }
 
+    // Trang Detail cần cả ảnh, giá, xuất xứ nên trả danh sách Product.
     public static ArrayList<Product> getProducts() {
         ArrayList<Product> products = new ArrayList<>();
+        // Mỗi new Product(...) tạo một sản phẩm rồi add() vào danh sách.
         products.add(new Product(
                 "Apple",
                 "New Zealand",
                 "Táo giòn, vị ngọt thanh.",
                 50000,
+                // R.drawable.* là ID tài nguyên ảnh, không phải chuỗi đường dẫn.
                 R.drawable.fruit_apple
         ));
 
@@ -132,6 +137,7 @@ public class DataSource {
                 10000,
                 R.drawable.fruit_lime
         ));
+        // Trả danh sách Product cho DetailActivity.
         return products;
     }
 }
