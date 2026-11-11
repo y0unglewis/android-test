@@ -43,6 +43,16 @@ public class HomeActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // When returning from Detail, highlight Home again.
+        BottomNavigationView nav = findViewById(R.id.bottomNav);
+        if (nav != null) {
+            nav.setSelectedItemId(R.id.nav_home);
+        }
+    }
+
     private void openProducts(int position) {
         Intent intent = new Intent(this, DetailActivity.class);
         if (position >= 0) {
