@@ -19,15 +19,19 @@ public class Product {
     public String getName() {
         return name;
     }
+
     public String getOrigin() {
         return origin;
     }
+
     public String getDescription() {
         return description;
     }
+
     public int getPrice() {
         return price;
     }
+
     public int getImageResId() {
         return imageResId;
     }

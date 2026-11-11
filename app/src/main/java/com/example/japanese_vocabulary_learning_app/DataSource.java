@@ -20,6 +20,7 @@ public class DataSource {
                 50000,
                 R.drawable.fruit_apple
         ));
+
         products.add(new Product(
                 "Banana",
                 "Việt Nam",
@@ -27,6 +28,7 @@ public class DataSource {
                 25000,
                 R.drawable.fruit_banana
         ));
+
         products.add(new Product(
                 "Cherry",
                 "Mỹ",
@@ -34,6 +36,7 @@ public class DataSource {
                 180000,
                 R.drawable.fruit_cherry
         ));
+
         products.add(new Product(
                 "Chà là (Date)",
                 "Tunisia",
@@ -41,6 +44,7 @@ public class DataSource {
                 120000,
                 R.drawable.fruit_date
         ));
+
         products.add(new Product(
                 "Nho (Grapes)",
                 "Việt Nam",
@@ -48,6 +52,7 @@ public class DataSource {
                 75000,
                 R.drawable.fruit_grapes
         ));
+
         products.add(new Product(
                 "Watermelon",
                 "Long An",
@@ -55,6 +60,7 @@ public class DataSource {
                 15000,
                 R.drawable.fruit_watermelon
         ));
+
         products.add(new Product(
                 "Pineapple",
                 "Tiền Giang",
@@ -62,6 +68,7 @@ public class DataSource {
                 20000,
                 R.drawable.fruit_pineapple
         ));
+
         products.add(new Product(
                 "Mango",
                 "Đồng Tháp",
@@ -69,6 +76,7 @@ public class DataSource {
                 45000,
                 R.drawable.fruit_mango
         ));
+
         products.add(new Product(
                 "Lemon",
                 "Đà Lạt",
@@ -76,6 +84,7 @@ public class DataSource {
                 35000,
                 R.drawable.fruit_lemon
         ));
+
         products.add(new Product(
                 "Papaya",
                 "Bình Phước",
@@ -83,6 +92,7 @@ public class DataSource {
                 18000,
                 R.drawable.fruit_papaya
         ));
+
         products.add(new Product(
                 "Avocado",
                 "Đắk Lắk",
@@ -90,6 +100,7 @@ public class DataSource {
                 40000,
                 R.drawable.fruit_avocado
         ));
+
         products.add(new Product(
                 "Coconut",
                 "Bến Tre",
@@ -97,6 +108,7 @@ public class DataSource {
                 12000,
                 R.drawable.fruit_coconut
         ));
+
         products.add(new Product(
                 "Peach",
                 "Sa Pa",
@@ -104,6 +116,7 @@ public class DataSource {
                 50000,
                 R.drawable.fruit_peach
         ));
+
         products.add(new Product(
                 "Pear",
                 "Hàn Quốc",
@@ -111,6 +124,7 @@ public class DataSource {
                 65000,
                 R.drawable.fruit_pear
         ));
+
         products.add(new Product(
                 "Lime",
                 "Long An",
