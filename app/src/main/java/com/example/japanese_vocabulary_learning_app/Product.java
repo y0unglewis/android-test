@@ -16,9 +16,19 @@ public class Product {
         this.imageResId = imageResId;
     }
 
-    public String getName() { return name; }
-    public String getOrigin() { return origin; }
-    public String getDescription() { return description; }
-    public int getPrice() { return price; }
-    public int getImageResId() { return imageResId; }
+    public String getName() {
+        return name;
+    }
+    public String getOrigin() {
+        return origin;
+    }
+    public String getDescription() {
+        return description;
+    }
+    public int getPrice() {
+        return price;
+    }
+    public int getImageResId() {
+        return imageResId;
+    }
 }

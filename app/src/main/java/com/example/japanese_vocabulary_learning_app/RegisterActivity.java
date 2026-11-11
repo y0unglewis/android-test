@@ -49,10 +49,18 @@ public class RegisterActivity extends AppCompatActivity {
                 return;
             }
             if (DemoAuth.register(this, username, password)) {
-                Toast.makeText(this, "Tạo tài khoản demo thành công! Hãy đăng nhập.", Toast.LENGTH_LONG).show();
+                Toast.makeText(
+                        this,
+                        "Tạo tài khoản demo thành công! Hãy đăng nhập.",
+                        Toast.LENGTH_LONG
+                ).show();
                 finish();
             } else {
-                Toast.makeText(this, "Không lưu được tài khoản. Vui lòng thử lại.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(
+                        this,
+                        "Không lưu được tài khoản. Vui lòng thử lại.",
+                        Toast.LENGTH_SHORT
+                ).show();
             }
         });
     }
