@@ -1,10 +1,13 @@
 package com.example.japanese_vocabulary_learning_app;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -29,9 +32,20 @@ public class HomeActivity extends AppCompatActivity {
         listView.setOnItemClickListener((parent, view, position, id) ->
                 openProducts(position));
 
+        // Mở màn hình Profile khi chạm icon hình người trên góc phải Home.
+        ImageButton btnProfile = findViewById(R.id.btnProfile);
+        btnProfile.setOnClickListener(v ->
+                startActivity(new Intent(this, ProfileActivity.class)));
+
         // Xóa task khi đăng xuất để Back không trở lại Home đã mở.
         Button btnLogout = findViewById(R.id.btnLogout);
         btnLogout.setOnClickListener(v -> {
+            // Xóa username của phiên đang dùng, không xóa tài khoản DemoAuth.
+            getSharedPreferences("user_session", MODE_PRIVATE)
+                    .edit()
+                    .remove("username")
+                    .apply();
+
             Intent intent = new Intent(this, LoginActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
@@ -52,7 +66,17 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        // Khi quay về từ Detail, đánh dấu tab Home là đang chọn.
+
+        // Home lấy username từ SharedPreferences để hiển thị lời chào.
+        SharedPreferences prefs = getSharedPreferences("user_session", MODE_PRIVATE);
+        String username = prefs.getString("username", "bạn");
+        if (username == null || username.isEmpty()) {
+            username = "bạn";
+        }
+        TextView tvWelcome = findViewById(R.id.tvWelcome);
+        tvWelcome.setText("Xin chào, " + username + "!");
+
+        // Khi quay về từ Detail hoặc Profile, đánh dấu tab Home là đang chọn.
         BottomNavigationView nav = findViewById(R.id.bottomNav);
         if (nav != null) {
             nav.setSelectedItemId(R.id.nav_home);

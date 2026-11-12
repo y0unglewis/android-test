@@ -1,6 +1,7 @@
 package com.example.japanese_vocabulary_learning_app;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
@@ -37,6 +38,12 @@ public class LoginActivity extends AppCompatActivity {
             }
             // Xác thực demo; thành công thì Intent mở Home, finish() đóng Login.
             if (DemoAuth.signIn(this, username, password)) {
+                // Chỉ lưu username khi đăng nhập thành công (không lưu mật khẩu ở session).
+                SharedPreferences prefs = getSharedPreferences("user_session", MODE_PRIVATE);
+                prefs.edit()
+                        .putString("username", username)
+                        .apply();
+
                 startActivity(new Intent(this, HomeActivity.class));
                 finish();
             } else {
