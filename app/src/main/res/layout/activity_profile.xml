@@ -102,6 +102,30 @@
                 android:textStyle="bold"
                 android:textColor="@color/text_primary" />
 
+            <!-- Ô Họ và tên mới chỉ là giao diện, chưa cho nhập hay lưu dữ liệu. -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="Họ và tên"
+                android:textSize="13sp"
+                android:textColor="@color/text_secondary" />
+
+            <EditText
+                android:id="@+id/edtFullName"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/bg_input"
+                android:paddingHorizontal="14dp"
+                android:hint="Chưa cập nhật"
+                android:inputType="textPersonName"
+                android:singleLine="true"
+                android:enabled="false"
+                android:focusable="false"
+                android:textColor="@color/text_primary"
+                android:textColorHint="@color/text_secondary" />
+
         </LinearLayout>
 
     </LinearLayout>
