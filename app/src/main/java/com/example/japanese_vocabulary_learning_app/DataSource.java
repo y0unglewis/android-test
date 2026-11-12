@@ -2,18 +2,10 @@ package com.example.japanese_vocabulary_learning_app;
 
 import java.util.ArrayList;
 
-// Dữ liệu mẫu viết sẵn, chưa sử dụng cơ sở dữ liệu hoặc mạng.
+// Dữ liệu khởi tạo 15 trái cây khi SQLite tạo bảng lần đầu.
+// Sau khi khởi tạo, Home và Detail luôn đọc từ database, không đọc trực tiếp từ đây.
 public class DataSource {
-    // Trang Home chỉ dùng tên nên trả mảng String cho ArrayAdapter.
-    public static String[] getItems() {
-        return new String[] {
-            "Apple", "Banana", "Cherry", "Chà là (Date)", "Nho (Grapes)",
-            "Watermelon", "Pineapple", "Mango", "Lemon", "Papaya",
-            "Avocado", "Coconut", "Peach", "Pear", "Lime"
-        };
-    }
-
-    // Trang Detail cần cả ảnh, giá, xuất xứ nên trả danh sách Product.
+    // Chỉ gọi một lần trong FruitDatabaseHelper.onCreate() để seed dữ liệu mẫu.
     public static ArrayList<Product> getProducts() {
         ArrayList<Product> products = new ArrayList<>();
         // Mỗi new Product(...) tạo một sản phẩm rồi add() vào danh sách.
@@ -137,7 +129,7 @@ public class DataSource {
                 10000,
                 R.drawable.fruit_lime
         ));
-        // Trả danh sách Product cho DetailActivity.
+        // Dùng làm dữ liệu seed cho SQLite khi cài app lần đầu.
         return products;
     }
 }

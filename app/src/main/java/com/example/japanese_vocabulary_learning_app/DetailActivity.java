@@ -19,7 +19,10 @@ public class DetailActivity extends AppCompatActivity {
         ImageButton btnBackHome = findViewById(R.id.btnBackHome);
         btnBackHome.setOnClickListener(v -> finish());
 
-        ArrayList<Product> products = DataSource.getProducts();
+        // Lấy danh sách trái cây thật từ bảng fruits trong SQLite.
+        FruitDatabaseHelper dbHelper = new FruitDatabaseHelper(this);
+        ArrayList<Product> products = dbHelper.getAllProducts();
+        dbHelper.close();
         TextView tvProductCount = findViewById(R.id.tvProductCount);
         tvProductCount.setText(products.size() + " loại trái cây");
 

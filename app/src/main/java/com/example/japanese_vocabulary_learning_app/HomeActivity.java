@@ -28,7 +28,11 @@ public class HomeActivity extends AppCompatActivity {
 
         tvWelcome.setText("Xin chào, " + username + "!");
 
-        String[] items = DataSource.getItems();
+        // Đọc danh sách tên từ SQLite thay vì mảng viết sẵn trong DataSource.
+        // Lần đầu mở database, SQLiteOpenHelper sẽ tự tạo bảng và lưu 15 trái cây mẫu.
+        FruitDatabaseHelper dbHelper = new FruitDatabaseHelper(this);
+        String[] items = dbHelper.getAllNames();
+        dbHelper.close();
         ListView listView = findViewById(R.id.listView);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(
                 this, android.R.layout.simple_list_item_1, items);
