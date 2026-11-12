@@ -33,7 +33,7 @@ public class RegisterActivity extends AppCompatActivity {
             String password = edtPassword.getText().toString();
             String confirm = edtConfirmPassword.getText().toString();
 
-            // Regex yêu cầu 3–20 ký tự gồm chữ Latin, số hoặc dấu gạch dưới.
+            // Regex yêu cầu 3–20 ký tự gồm chữ, số hoặc dấu gạch dưới.
             if (!username.matches("[A-Za-z0-9_]{3,20}")) {
                 edtUsername.setError("Dùng 3–20 ký tự: chữ, số hoặc _");
                 edtUsername.requestFocus();

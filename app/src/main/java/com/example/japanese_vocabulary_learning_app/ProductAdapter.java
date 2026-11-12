@@ -10,7 +10,6 @@ import android.widget.TextView;
 import java.util.List;
 import java.util.Locale;
 
-// Adapter chuyển từng Product thành một card có ImageView và TextView.
 public class ProductAdapter extends ArrayAdapter<Product> {
     public ProductAdapter(Context context, List<Product> products) {
         // Gửi Context và danh sách Product lên ArrayAdapter cha.

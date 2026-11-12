@@ -19,9 +19,7 @@ public class DetailActivity extends AppCompatActivity {
         ImageButton btnBackHome = findViewById(R.id.btnBackHome);
         btnBackHome.setOnClickListener(v -> finish());
 
-        // Danh sách chứa các Product, mỗi Product có 5 thuộc tính.
         ArrayList<Product> products = DataSource.getProducts();
-        // Đếm phần tử bằng size() để giao diện cập nhật theo dữ liệu.
         TextView tvProductCount = findViewById(R.id.tvProductCount);
         tvProductCount.setText(products.size() + " loại trái cây");
 

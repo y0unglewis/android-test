@@ -8,18 +8,12 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 
-/**
- * Dùng để học Android: chỉ lưu một tài khoản đăng ký trên thiết bị, không có máy chủ.
- * Mật khẩu demo viết cố định và SHA-256 + salt ở đây không đạt chuẩn xác thực production.
- */
 public final class DemoAuth {
-    // Các khóa dùng để lưu tài khoản demo cục bộ qua SharedPreferences.
     private static final String PREFERENCES = "fruit_demo_account";
     private static final String KEY_USERNAME = "username";
     private static final String KEY_SALT = "salt";
     private static final String KEY_HASH = "password_hash";
 
-    // Chặn tạo đối tượng mới: các phương thức bên dưới đều là static.
     private DemoAuth() { }
 
     // Kiểm tra tài khoản nhập: hỗ trợ demo/123456 và một tài khoản người dùng đăng ký.

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Home sắp xếp header, khối giới thiệu, ListView và thanh điều hướng theo chiều dọc. -->
+
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -18,11 +18,13 @@
         android:paddingBottom="14dp"
         android:orientation="horizontal"
         android:gravity="center_vertical">
+
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="vertical">
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -31,16 +33,19 @@
                 android:letterSpacing="0.1"
                 android:textSize="12sp"
                 android:textColor="@color/brand_primary" />
+
             <TextView
+                android:id="@+id/tvWelcome"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:text="Xin chào, khám phá trái cây!"
+                android:text="Xin chào!"
                 android:textStyle="bold"
                 android:textSize="21sp"
                 android:textColor="@color/text_primary" />
+
         </LinearLayout>
-        <!-- Nút đăng xuất đưa người dùng về Login và xóa task màn hình hiện tại. -->
+
         <Button
             android:id="@+id/btnLogout"
             android:layout_width="wrap_content"
@@ -50,6 +55,7 @@
             android:textSize="13sp"
             android:backgroundTint="@color/nav_indicator"
             android:textColor="@color/brand_dark" />
+
     </LinearLayout>
 
     <LinearLayout
@@ -59,6 +65,7 @@
         android:background="@drawable/bg_highlight"
         android:orientation="vertical"
         android:padding="18dp">
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -66,6 +73,7 @@
             android:textSize="20sp"
             android:textStyle="bold"
             android:textColor="@color/brand_dark" />
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -74,7 +82,7 @@
             android:text="Từ nguồn gốc đến giá tham khảo, mọi thông tin trong một nơi."
             android:textSize="13sp"
             android:textColor="@color/text_secondary" />
-        <!-- Nhấn để mở Detail với toàn bộ 15 sản phẩm. -->
+
         <Button
             android:id="@+id/btnOpenProducts"
             android:layout_width="match_parent"
@@ -83,6 +91,7 @@
             android:textAllCaps="false"
             android:backgroundTint="@color/brand_primary"
             android:textColor="@color/white" />
+
     </LinearLayout>
 
     <TextView
@@ -96,7 +105,6 @@
         android:textStyle="bold"
         android:textColor="@color/text_primary" />
 
-    <!-- ListView dùng ArrayAdapter<String>; layout_weight=1 chiếm phần cao còn lại. -->
     <ListView
         android:id="@+id/listView"
         android:layout_width="match_parent"
