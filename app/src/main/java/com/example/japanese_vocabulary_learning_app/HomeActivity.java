@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -37,6 +38,13 @@ public class HomeActivity extends AppCompatActivity {
         btnOpenProducts.setOnClickListener(v -> openProducts(-1));
         listView.setOnItemClickListener((parent, view, position, id) ->
                 openProducts(position));
+
+        // Nhấn icon ở Home để mở hồ sơ. Giữ lại Home trong back stack.
+        ImageButton btnProfile = findViewById(R.id.btnProfile);
+        btnProfile.setOnClickListener(v -> {
+            Intent intent = new Intent(this, ProfileActivity.class);
+            startActivity(intent);
+        });
 
         Button btnLogout = findViewById(R.id.btnLogout);
 
