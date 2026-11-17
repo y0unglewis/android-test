@@ -1,4 +1,4 @@
-package com.example.japanese_vocabulary_learning_app;
+package com.example.androidpractice;
 
 import android.os.Bundle;
 import android.widget.ImageButton;

@@ -3,13 +3,13 @@ plugins {
 }
 
 android {
-    namespace = "com.example.japanese_vocabulary_learning_app"
+    namespace = "com.example.androidpractice"
     compileSdk {
         version = release(37)
     }
 
     defaultConfig {
-        applicationId = "com.example.japanese_vocabulary_learning_app"
+        applicationId = "com.example.androidpractice"
         minSdk = 24
         targetSdk = 37
         versionCode = 1

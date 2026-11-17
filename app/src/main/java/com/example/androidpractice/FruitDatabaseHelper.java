@@ -1,4 +1,4 @@
-package com.example.japanese_vocabulary_learning_app;
+package com.example.androidpractice;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -8,12 +8,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import java.util.ArrayList;
 
-/**
- * Quản lý SQLite nội bộ ứng dụng.
- *
- * onCreate() tạo bảng fruits và thêm 15 trái cây mẫu một lần duy nhất.
- * Home và Detail đọc dữ liệu từ SQLite qua getAllNames() / getAllProducts().
- */
 public class FruitDatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "fruits.db";
@@ -36,7 +30,6 @@ public class FruitDatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        // CREATE TABLE chỉ chạy khi fruits.db chưa tồn tại trên thiết bị.
         String sql = "CREATE TABLE " + TABLE_FRUITS + " ("
                 + COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + COL_NAME + " TEXT NOT NULL UNIQUE, "
@@ -47,8 +40,6 @@ public class FruitDatabaseHelper extends SQLiteOpenHelper {
                 + ")";
         db.execSQL(sql);
 
-        // Lưu 15 loại trái cây mẫu vào SQLite trong lần tạo database đầu tiên.
-        // Giữ tên drawable (fruit_apple) thay vì ID R.drawable.* vì ID có thể đổi khi build.
         for (Product product : DataSource.getProducts()) {
             ContentValues values = new ContentValues();
             values.put(COL_NAME, product.getName());
@@ -67,9 +58,6 @@ public class FruitDatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        // Hiện database ở phiên bản 1, chưa cần nâng cấp.
-        // Nếu tăng DATABASE_VERSION, hãy viết migration bằng ALTER TABLE
-        // hoặc câu lệnh thích hợp, không DROP TABLE làm mất dữ liệu người dùng.
     }
 
     // SELECT toàn bộ thông tin trái cây để ProductAdapter hiển thị ở Detail.
@@ -104,7 +92,6 @@ public class FruitDatabaseHelper extends SQLiteOpenHelper {
             while (cursor.moveToNext()) {
                 String imageName = cursor.getString(imageCol);
 
-                // Chuyển "fruit_apple" thành ID drawable để ImageView sử dụng.
                 int imageResId = appContext.getResources().getIdentifier(
                         imageName,
                         "drawable",
