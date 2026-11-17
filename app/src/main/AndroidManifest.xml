@@ -32,5 +32,10 @@
         <activity
             android:name=".DetailActivity"
             android:exported="false" />
+
+        <!-- Profile chỉ mở nội bộ trong ứng dụng. -->
+        <activity
+            android:name=".ProfileActivity"
+            android:exported="false" />
     </application>
 </manifest>

@@ -1,4 +1,4 @@
-package com.example.japanese_vocabulary_learning_app;
+package com.example.androidpractice;
 
 // Model lưu dữ liệu của MỘT loại trái cây; không tạo giao diện.
 public class Product {
