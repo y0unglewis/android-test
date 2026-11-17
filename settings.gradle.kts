@@ -22,5 +22,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "japanese-vocabulary-learning-app"
+rootProject.name = "android-practice"
 include(":app")

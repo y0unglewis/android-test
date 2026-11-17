@@ -5,44 +5,75 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="16dp"
-    android:background="@drawable/bg_product_card">
-
-    <TextView
-        android:id="@+id/tvProductName"
+    android:paddingHorizontal="4dp"
+    android:paddingVertical="6dp">
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Tên sản phẩm"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:textColor="#262626" />
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:padding="14dp"
+        android:background="@drawable/bg_product_card"
+        android:elevation="2dp">
 
-    <TextView
-        android:id="@+id/tvProductOrigin"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="Xuất xứ"
-        android:textSize="14sp"
-        android:textColor="#666666" />
+        <!-- ImageView hiển thị drawable từ product.getImageResId() bằng setImageResource(). -->
+        <ImageView
+            android:id="@+id/imgProduct"
+            android:layout_width="86dp"
+            android:layout_height="86dp"
+            android:padding="8dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/fruit_apple"
+            android:background="@drawable/bg_fruit_icon"
+            android:contentDescription="@string/product_image_description" />
 
-    <TextView
-        android:id="@+id/tvProductDescription"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="Mô tả sản phẩm"
-        android:textSize="14sp"
-        android:textColor="#444444" />
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="14dp"
+            android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/tvProductPrice"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:text="0 đ/kg"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:textColor="#B44E4E" />
-
+            <!-- Adapter dùng setText() để đặt tên sản phẩm. -->
+            <TextView
+                android:id="@+id/tvProductName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Tên sản phẩm"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:textColor="@color/text_primary" />
+            <!-- Adapter ghép chữ Xuất xứ với product.getOrigin(). -->
+            <TextView
+                android:id="@+id/tvProductOrigin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="Xuất xứ"
+                android:textSize="12sp"
+                android:textColor="@color/brand_primary" />
+            <!-- maxLines và ellipsize giới hạn mô tả quá dài. -->
+            <TextView
+                android:id="@+id/tvProductDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="7dp"
+                android:maxLines="3"
+                android:ellipsize="end"
+                android:text="Mô tả sản phẩm"
+                android:lineSpacingExtra="2dp"
+                android:textSize="13sp"
+                android:textColor="@color/text_secondary" />
+            <!-- Adapter format giá theo Locale vi-VN rồi gán cho TextView. -->
+            <TextView
+                android:id="@+id/tvProductPrice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="0 đ/kg"
+                android:textStyle="bold"
+                android:textSize="17sp"
+                android:textColor="@color/price_color" />
+        </LinearLayout>
+    </LinearLayout>
 </LinearLayout>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
-
+<!-- Manifest khai báo các Activity. LoginActivity có MAIN và LAUNCHER nên là màn hình khởi động. -->
+<manifest
+    xmlns:android="http://schemas.android.com/apk/res/android">
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -12,27 +12,30 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Japanesevocabularylearningapp">
         <activity
-            android:name=".MainActivity"
+            android:name=".LoginActivity"
             android:exported="true"
             android:windowSoftInputMode="adjustResize">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
+                <action
+                    android:name="android.intent.action.MAIN" />
+                <category
+                    android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name=".activityLogin"
+            android:name=".RegisterActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".activityRegister"
-            android:exported="false"
-            android:windowSoftInputMode="adjustResize" />
+            android:name=".HomeActivity"
+            android:exported="false" />
         <activity
-            android:name=".ProductListActivity"
-            android:exported="false"
-            android:windowSoftInputMode="adjustResize" />
-    </application>
+            android:name=".DetailActivity"
+            android:exported="false" />
 
+        <!-- Profile chỉ mở nội bộ trong ứng dụng. -->
+        <activity
+            android:name=".ProfileActivity"
+            android:exported="false" />
+    </application>
 </manifest>
