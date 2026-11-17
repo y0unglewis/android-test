@@ -59,7 +59,6 @@ public class HomeActivity extends AppCompatActivity {
         listView.setOnItemClickListener((parent, view, position, id) ->
                 openProducts(position));
 
-        // Nhấn icon ở Home để mở hồ sơ. Giữ lại Home trong back stack.
         ImageButton btnProfile = findViewById(R.id.btnProfile);
         btnProfile.setOnClickListener(v -> {
             Intent intent = new Intent(this, ProfileActivity.class);
@@ -101,43 +100,42 @@ public class HomeActivity extends AppCompatActivity {
         }
     }
 
-    private void uploadFruitsOnce() {
-
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-
-        ArrayList<Product> products = DataSource.getProducts();
-
-        // Duyệt từng trái cây.
-        for (int i = 0; i < products.size(); i++) {
-
-            Product product = products.get(i);
-
-            // Tạo dữ liệu cho một document.
-            Map<String, Object> data = new HashMap<>();
-
-            data.put("name", product.getName());
-            data.put("origin", product.getOrigin());
-            data.put("description", product.getDescription());
-            data.put("price", (long) product.getPrice());
-
-            String imageName = getResources()
-                    .getResourceEntryName(product.getImageResId());
-
-            data.put("image_name", imageName);
-            data.put("sort_order", (long) (i + 1));
-
-            int documentId = i + 1;
-
-            // Ghi một document lên Firebase.
-            db.collection("fruits")
-                    .document(String.valueOf(documentId))
-                    .set(data)
-                    .addOnSuccessListener(unused ->
-                            Log.d("Firestore", "Đã upload: " + documentId))
-                    .addOnFailureListener(e ->
-                            Log.e("Firestore", "Lỗi upload: " + documentId, e));
-        }
-    }
+//    private void uploadFruitsOnce() {
+//
+//        FirebaseFirestore db = FirebaseFirestore.getInstance();
+//
+//        ArrayList<Product> products = DataSource.getProducts();
+//
+//        // Duyệt từng trái cây.
+//        for (int i = 0; i < products.size(); i++) {
+//
+//            Product product = products.get(i);
+//
+//            Map<String, Object> data = new HashMap<>();
+//
+//            data.put("name", product.getName());
+//            data.put("origin", product.getOrigin());
+//            data.put("description", product.getDescription());
+//            data.put("price", (long) product.getPrice());
+//
+//            String imageName = getResources()
+//                    .getResourceEntryName(product.getImageResId());
+//
+//            data.put("image_name", imageName);
+//            data.put("sort_order", (long) (i + 1));
+//
+//            int documentId = i + 1;
+//
+//            // Ghi một document lên Firebase.
+//            db.collection("fruits")
+//                    .document(String.valueOf(documentId))
+//                    .set(data)
+//                    .addOnSuccessListener(unused ->
+//                            Log.d("Firestore", "Đã upload: " + documentId))
+//                    .addOnFailureListener(e ->
+//                            Log.e("Firestore", "Lỗi upload: " + documentId, e));
+//        }
+//    }
 
     private void loadFruitNamesFromFirestore(ListView listView) {
 
