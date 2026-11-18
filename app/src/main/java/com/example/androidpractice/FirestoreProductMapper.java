@@ -15,6 +15,7 @@ public final class FirestoreProductMapper {
         Long price = document.getLong(AppConstants.FIELD_PRICE);
         String imageName = document.getString(AppConstants.FIELD_IMAGE_NAME);
 
+        // Lấy hình ảnh từ drawable dựa trên tên lưu ở Firebase.
         int imageResId = 0;
         if (imageName != null) {
             imageResId = context.getResources().getIdentifier(
