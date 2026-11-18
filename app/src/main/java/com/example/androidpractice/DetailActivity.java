@@ -20,6 +20,7 @@ public class DetailActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // Layout Detail chứa nút Back, bộ đếm, ListView và thanh menu dưới.
         setContentView(R.layout.activity_detail);
 
         setupBackButton();
@@ -28,6 +29,7 @@ public class DetailActivity extends AppCompatActivity {
     }
 
     private void setupBackButton() {
+        // finish() đóng Detail và trở lại màn hình trước, không tạo Home mới.
         ImageButton btnBackHome = findViewById(R.id.btnBackHome);
         btnBackHome.setOnClickListener(v -> finish());
     }
@@ -37,6 +39,27 @@ public class DetailActivity extends AppCompatActivity {
         ListView listView = findViewById(R.id.listViewProducts);
         loadProductsFromFirestore(listView, tvProductCount);
     }
+
+    // ===== BÀI CŨ: SQLITE TRONG DETAIL (GIỮ LẠI ĐỂ CÔ KIỂM TRA) =====
+//        // Lấy danh sách trái cây thật từ bảng fruits trong SQLite.
+//        FruitDatabaseHelper dbHelper = new FruitDatabaseHelper(this);
+//        ArrayList<Product> products = dbHelper.getAllProducts();
+//        dbHelper.close();
+
+//        TextView tvProductCount = findViewById(R.id.tvProductCount);
+//        tvProductCount.setText(products.size() + " loại trái cây");
+//
+//        // ProductAdapter tùy chỉnh mỗi dòng bằng item_product.xml.
+//        ListView listView = findViewById(R.id.listViewProducts);
+//        ProductAdapter adapter = new ProductAdapter(this, products);
+//        listView.setAdapter(adapter);
+//
+//        // Nhận vị trí sản phẩm từ Home bằng getIntExtra(); -1 nghĩa là không chọn.
+//        int selected = getIntent().getIntExtra("selected_position", -1);
+//        if (selected >= 0 && selected < products.size()) {
+//            // Sau khi View sẵn sàng, setSelection() cuộn đến sản phẩm được chọn.
+//            listView.post(() -> listView.setSelection(selected));
+//        }
 
     private void setupBottomNavigation() {
         BottomNavigationView bottomNav = findViewById(R.id.bottomNav);
@@ -70,6 +93,7 @@ public class DetailActivity extends AppCompatActivity {
     private void showProducts(QuerySnapshot querySnapshot,
                               ListView listView, TextView tvProductCount) {
         ArrayList<Product> products = new ArrayList<>();
+        // Duyệt từng document trên Firebase để tạo danh sách Product.
         for (QueryDocumentSnapshot document : querySnapshot) {
             products.add(FirestoreProductMapper.fromDocument(this, document));
         }
