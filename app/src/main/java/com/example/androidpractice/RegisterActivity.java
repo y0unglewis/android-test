@@ -26,7 +26,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void bindInputFields() {
-        // Kết nối các ô nhập với Java.
+        // Kết nối nút mũi tên và các ô nhập với Java.
         edtUsername = findViewById(R.id.edtRegisterUsername);
         edtPassword = findViewById(R.id.edtRegisterPassword);
         edtConfirmPassword = findViewById(R.id.edtConfirmPassword);
