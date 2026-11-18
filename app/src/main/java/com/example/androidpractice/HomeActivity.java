@@ -32,6 +32,7 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+//        uploadFruitsOnce(); // Bài Firebase: để comment, không upload tự động.
 
         showWelcomeMessage();
         setupFruitList();
@@ -51,6 +52,7 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void setupFruitList() {
+        // Tìm ListView trên giao diện Home.
         ListView listView = findViewById(R.id.listView);
         fruitAdapter = new ArrayAdapter<>(
                 this, android.R.layout.simple_list_item_1, fruitNames);
@@ -60,6 +62,15 @@ public class HomeActivity extends AppCompatActivity {
 
         loadFruitsFromFirestore();
     }
+
+    // ===== BÀI CŨ: SQLITE TRONG HOME (GIỮ LẠI ĐỂ CÔ KIỂM TRA) =====
+//        FruitDatabaseHelper dbHelper = new FruitDatabaseHelper(this);
+//        String[] items = dbHelper.getAllNames();
+//        dbHelper.close();
+//        ListView listView = findViewById(R.id.listView);
+//        ArrayAdapter<String> adapter = new ArrayAdapter<>(
+//                this, android.R.layout.simple_list_item_1, items);
+//        listView.setAdapter(adapter);
 
     private void setupProductsButton() {
         Button btnOpenProducts = findViewById(R.id.btnOpenProducts);
@@ -148,6 +159,7 @@ public class HomeActivity extends AppCompatActivity {
 
 
     private void loadFruitsFromFirestore() {
+        // Lấy danh sách trái cây từ Cloud Firestore, không dùng SQLite.
         FirebaseFirestore.getInstance()
                 .collection(AppConstants.COLLECTION_FRUITS)
                 .orderBy(AppConstants.FIELD_SORT_ORDER)
