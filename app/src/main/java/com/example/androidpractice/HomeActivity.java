@@ -54,6 +54,7 @@ public class HomeActivity extends AppCompatActivity {
     private void setupFruitList() {
         // Tìm ListView trên giao diện Home.
         ListView listView = findViewById(R.id.listView);
+        // Tạo Adapter để hiển thị dữ liệu lên ListView.
         fruitAdapter = new ArrayAdapter<>(
                 this, android.R.layout.simple_list_item_1, fruitNames);
         listView.setAdapter(fruitAdapter);
@@ -99,6 +100,7 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void setupBottomNavigation() {
+        // Navigation bar
         BottomNavigationView bottomNav = findViewById(R.id.bottomNav);
         bottomNav.setSelectedItemId(R.id.nav_home);
         bottomNav.setOnItemSelectedListener(item -> {
@@ -159,7 +161,8 @@ public class HomeActivity extends AppCompatActivity {
 
 
     private void loadFruitsFromFirestore() {
-        // Lấy danh sách trái cây từ Cloud Firestore, không dùng SQLite.
+        // Lấy danh sách trái cây từ Cloud Firestore.
+        // Lấy dữ liệu từ collection fruits.
         FirebaseFirestore.getInstance()
                 .collection(AppConstants.COLLECTION_FRUITS)
                 .orderBy(AppConstants.FIELD_SORT_ORDER)
@@ -172,14 +175,17 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void showFruitNames(QuerySnapshot querySnapshot) {
+        // Xóa dữ liệu cũ trong danh sách.
         products.clear();
         fruitNames.clear();
 
+        // Duyệt từng document trả về.
         for (QueryDocumentSnapshot document : querySnapshot) {
             Product product = FirestoreProductMapper.fromDocument(this, document);
             products.add(product);
             fruitNames.add(product.getName());
         }
+        // Thông báo dữ liệu đã thay đổi để ListView cập nhật.
         fruitAdapter.notifyDataSetChanged();
     }
 
