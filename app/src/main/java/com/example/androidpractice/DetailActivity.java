@@ -1,15 +1,20 @@
 package com.example.androidpractice;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
-import androidx.appcompat.app.AppCompatActivity;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-import java.util.ArrayList;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.ArrayList;
 
 public class DetailActivity extends AppCompatActivity {
     @Override
@@ -18,10 +23,24 @@ public class DetailActivity extends AppCompatActivity {
         // Layout Detail chứa nút Back, bộ đếm, ListView và thanh menu dưới.
         setContentView(R.layout.activity_detail);
 
+        setupBackButton();
+        setupProductList();
+        setupBottomNavigation();
+    }
+
+    private void setupBackButton() {
         // finish() đóng Detail và trở lại màn hình trước, không tạo Home mới.
         ImageButton btnBackHome = findViewById(R.id.btnBackHome);
         btnBackHome.setOnClickListener(v -> finish());
+    }
 
+    private void setupProductList() {
+        TextView tvProductCount = findViewById(R.id.tvProductCount);
+        ListView listView = findViewById(R.id.listViewProducts);
+        loadProductsFromFirestore(listView, tvProductCount);
+    }
+
+    // ===== BÀI CŨ: SQLITE TRONG DETAIL (GIỮ LẠI ĐỂ CÔ KIỂM TRA) =====
 //        // Lấy danh sách trái cây thật từ bảng fruits trong SQLite.
 //        FruitDatabaseHelper dbHelper = new FruitDatabaseHelper(this);
 //        ArrayList<Product> products = dbHelper.getAllProducts();
@@ -42,11 +61,7 @@ public class DetailActivity extends AppCompatActivity {
 //            listView.post(() -> listView.setSelection(selected));
 //        }
 
-        TextView tvProductCount = findViewById(R.id.tvProductCount);
-        ListView listView = findViewById(R.id.listViewProducts);
-
-        loadProductsFromFirestore(listView, tvProductCount);
-
+    private void setupBottomNavigation() {
         BottomNavigationView bottomNav = findViewById(R.id.bottomNav);
         bottomNav.setSelectedItemId(R.id.nav_products);
         bottomNav.setOnItemSelectedListener(item -> {
@@ -58,88 +73,65 @@ public class DetailActivity extends AppCompatActivity {
         });
     }
 
-    private void loadProductsFromFirestore(
-            ListView listView,
-            TextView tvProductCount
-    ) {
-
+    private void loadProductsFromFirestore(ListView listView, TextView tvProductCount) {
         tvProductCount.setText("Đang tải dữ liệu...");
 
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-
-        db.collection("fruits")
-                .orderBy("sort_order")
+        FirebaseFirestore.getInstance()
+                .collection(AppConstants.COLLECTION_FRUITS)
+                .orderBy(AppConstants.FIELD_SORT_ORDER)
                 .get()
-                .addOnSuccessListener(querySnapshot -> {
-
-                    ArrayList<Product> products = new ArrayList<>();
-
-                    // Duyệt từng document trên Firebase.
-                    for (QueryDocumentSnapshot document : querySnapshot) {
-
-                        String name = document.getString("name");
-                        String origin = document.getString("origin");
-                        String description = document.getString("description");
-                        Long price = document.getLong("price");
-                        String imageName = document.getString("image_name");
-
-                        // Lấy hình ảnh từ drawable dựa trên tên lưu ở Firebase.
-                        int imageResId = 0;
-
-                        if (imageName != null) {
-                            imageResId = getResources().getIdentifier(
-                                    imageName,
-                                    "drawable",
-                                    getPackageName()
-                            );
-                        }
-
-                        if (imageResId == 0) {
-                            imageResId = R.drawable.fruit_apple;
-                        }
-
-                        //
-                        Product product = new Product(
-                                name != null ? name : "",
-                                origin != null ? origin : "",
-                                description != null ? description : "",
-                                price != null ? price.intValue() : 0,
-                                imageResId
-                        );
-
-                        products.add(product);
-                    }
-
-                    tvProductCount.setText(
-                            products.size() + " loại trái cây"
-                    );
-
-                    ProductAdapter adapter = new ProductAdapter(
-                            this,
-                            products
-                    );
-
-                    listView.setAdapter(adapter);
-
-                    int selected = getIntent().getIntExtra(
-                            "selected_position",
-                            -1
-                    );
-
-                    if (selected >= 0 && selected < products.size()) {
-                        listView.post(() ->
-                                listView.setSelection(selected));
-                    }
-                })
+                .addOnSuccessListener(querySnapshot ->
+                        showProducts(querySnapshot, listView, tvProductCount))
                 .addOnFailureListener(e -> {
-
                     tvProductCount.setText("Không tải được dữ liệu");
-
-                    Toast.makeText(
-                            this,
+                    Toast.makeText(this,
                             "Lỗi Firestore: " + e.getMessage(),
-                            Toast.LENGTH_LONG
-                    ).show();
+                            Toast.LENGTH_LONG).show();
                 });
+    }
+
+    private void showProducts(QuerySnapshot querySnapshot,
+                              ListView listView, TextView tvProductCount) {
+        ArrayList<Product> products = new ArrayList<>();
+        // Duyệt từng document trên Firebase.
+        for (QueryDocumentSnapshot document : querySnapshot) {
+            products.add(FirestoreProductMapper.fromDocument(this, document));
+        }
+
+        tvProductCount.setText(products.size() + " loại trái cây");
+        listView.setAdapter(new ProductAdapter(this, products));
+        scrollToSelectedProduct(listView, products);
+    }
+
+    private void scrollToSelectedProduct(ListView listView, ArrayList<Product> products) {
+        int position = getIntent().getIntExtra(AppConstants.EXTRA_SELECTED_POSITION, -1);
+        Product selectedProduct = getSelectedProduct();
+
+        // Dùng Product được truyền qua Intent để tìm lại đúng mặt hàng.
+        if (selectedProduct != null) {
+            for (int i = 0; i < products.size(); i++) {
+                Product product = products.get(i);
+                if (product.getName().equals(selectedProduct.getName())
+                        && product.getOrigin().equals(selectedProduct.getOrigin())) {
+                    position = i;
+                    break;
+                }
+            }
+        }
+
+        if (position >= 0 && position < products.size()) {
+            int selectedPosition = position;
+            listView.post(() -> listView.setSelection(selectedPosition));
+        }
+    }
+
+    @SuppressWarnings("deprecation")
+    private Product getSelectedProduct() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            return getIntent().getSerializableExtra(
+                    AppConstants.EXTRA_SELECTED_PRODUCT, Product.class);
+        }
+        return (Product) getIntent().getSerializableExtra(
+                AppConstants.EXTRA_SELECTED_PRODUCT);
     }
 }

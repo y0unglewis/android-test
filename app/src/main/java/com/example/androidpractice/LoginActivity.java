@@ -6,8 +6,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
-import android.content.SharedPreferences;
 
 public class LoginActivity extends AppCompatActivity {
     private EditText edtUsername;
@@ -18,45 +18,53 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        bindInputFields();
+        setupLoginButton();
+        setupRegisterLink();
+    }
+
+    private void bindInputFields() {
         edtUsername = findViewById(R.id.edtUsername);
         edtPassword = findViewById(R.id.edtPassword);
+    }
+
+    private void setupLoginButton() {
         Button btnLogin = findViewById(R.id.btnLogin);
+        btnLogin.setOnClickListener(v -> login());
+    }
+
+    private void setupRegisterLink() {
         TextView tvGoRegister = findViewById(R.id.tvGoRegister);
-
-        btnLogin.setOnClickListener(v -> {
-
-            String username = edtUsername.getText().toString().trim();
-            String password = edtPassword.getText().toString();
-
-            if (username.isEmpty() || password.isEmpty()) {
-                Toast.makeText(this, "Vui lòng nhập đủ tài khoản và mật khẩu", Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            if (DemoAuth.signIn(this, username, password)) {
-
-                SharedPreferences prefs = getSharedPreferences(
-                        "user_session",
-                        MODE_PRIVATE
-                );
-
-                prefs.edit()
-                        .putString("username", username)
-                        .apply();
-
-                Intent intent = new Intent(this, HomeActivity.class);
-                startActivity(intent);
-
-                finish();
-                }
-            else {
-                edtPassword.setText("");
-                Toast.makeText(this, "Tài khoản hoặc mật khẩu không đúng", Toast.LENGTH_SHORT).show();
-            }
-        });
-
         tvGoRegister.setOnClickListener(v ->
                 startActivity(new Intent(this, RegisterActivity.class)));
+    }
+
+    private void login() {
+        String username = edtUsername.getText().toString().trim();
+        String password = edtPassword.getText().toString();
+
+        if (username.isEmpty() || password.isEmpty()) {
+            Toast.makeText(this, "Vui lòng nhập đủ tài khoản và mật khẩu",
+                    Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (DemoAuth.signIn(this, username, password)) {
+            saveSession(username);
+            startActivity(new Intent(this, HomeActivity.class));
+            finish();
+        } else {
+            edtPassword.setText("");
+            Toast.makeText(this, "Tài khoản hoặc mật khẩu không đúng",
+                    Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void saveSession(String username) {
+        getSharedPreferences(AppConstants.PREF_USER_SESSION, MODE_PRIVATE)
+                .edit()
+                .putString(AppConstants.KEY_USERNAME, username)
+                .apply();
     }
 
     @Override

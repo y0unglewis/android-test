@@ -1,44 +1,70 @@
 package com.example.androidpractice;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
-import androidx.appcompat.app.AppCompatActivity;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-import android.content.SharedPreferences;
 import android.widget.TextView;
-import android.util.Log;
+import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-
-import android.widget.Toast;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 public class HomeActivity extends AppCompatActivity {
+    // Hai danh sách cùng thứ tự: tên hiển thị và Product thật từ Firestore.
+    private final ArrayList<String> fruitNames = new ArrayList<>();
+    private final ArrayList<Product> products = new ArrayList<>();
+    private ArrayAdapter<String> fruitAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-//        uploadFruitsOnce();
+//        uploadFruitsOnce(); // Bài Firebase: để comment, không upload tự động.
+
+        showWelcomeMessage();
+        setupFruitList();
+        setupProductsButton();
+        setupProfileButton();
+        setupLogoutButton();
+        setupBottomNavigation();
+    }
+
+    private void showWelcomeMessage() {
+        SharedPreferences prefs = getSharedPreferences(
+                AppConstants.PREF_USER_SESSION, MODE_PRIVATE);
+        String username = prefs.getString(AppConstants.KEY_USERNAME, "bạn");
 
         TextView tvWelcome = findViewById(R.id.tvWelcome);
-
-        SharedPreferences prefs = getSharedPreferences(
-                "user_session",
-                MODE_PRIVATE
-        );
-
-        String username = prefs.getString("username", "bạn");
-
         tvWelcome.setText("Xin chào, " + username + "!");
+    }
 
+    private void setupFruitList() {
+        // Tìm ListView trên giao diện Home.
+        ListView listView = findViewById(R.id.listView);
+        // Tạo Adapter để hiển thị dữ liệu lên ListView.
+        fruitAdapter = new ArrayAdapter<>(
+                this, android.R.layout.simple_list_item_1, fruitNames);
+        listView.setAdapter(fruitAdapter);
+        listView.setOnItemClickListener((parent, view, position, id) ->
+                openProducts(position));
+
+        loadFruitsFromFirestore();
+    }
+
+    // ===== BÀI CŨ: SQLITE TRONG HOME (GIỮ LẠI ĐỂ CÔ KIỂM TRA) =====
 //        FruitDatabaseHelper dbHelper = new FruitDatabaseHelper(this);
 //        String[] items = dbHelper.getAllNames();
 //        dbHelper.close();
@@ -47,38 +73,33 @@ public class HomeActivity extends AppCompatActivity {
 //                this, android.R.layout.simple_list_item_1, items);
 //        listView.setAdapter(adapter);
 
-        // Tìm ListView trên giao diện Home.
-        ListView listView = findViewById(R.id.listView);
-
-        // Lấy danh sách trái cây từ Cloud Firestore.
-        loadFruitNamesFromFirestore(listView);
-
+    private void setupProductsButton() {
         Button btnOpenProducts = findViewById(R.id.btnOpenProducts);
         btnOpenProducts.setOnClickListener(v -> openProducts(-1));
+    }
 
-        listView.setOnItemClickListener((parent, view, position, id) ->
-                openProducts(position));
-
+    private void setupProfileButton() {
         ImageButton btnProfile = findViewById(R.id.btnProfile);
-        btnProfile.setOnClickListener(v -> {
-            Intent intent = new Intent(this, ProfileActivity.class);
-            startActivity(intent);
-        });
+        btnProfile.setOnClickListener(v ->
+                startActivity(new Intent(this, ProfileActivity.class)));
+    }
 
+    private void setupLogoutButton() {
         Button btnLogout = findViewById(R.id.btnLogout);
+        btnLogout.setOnClickListener(v -> logout());
+    }
 
-        btnLogout.setOnClickListener(v -> {
+    private void logout() {
+        getSharedPreferences(AppConstants.PREF_USER_SESSION, MODE_PRIVATE)
+                .edit()
+                .remove(AppConstants.KEY_USERNAME)
+                .apply();
 
-            prefs.edit()
-                    .remove("username")
-                    .apply();
+        startActivity(new Intent(this, LoginActivity.class));
+        finish();
+    }
 
-            Intent intent = new Intent(this, LoginActivity.class);
-
-            startActivity(intent);
-            finish();
-        });
-
+    private void setupBottomNavigation() {
         // Navigation bar
         BottomNavigationView bottomNav = findViewById(R.id.bottomNav);
         bottomNav.setSelectedItemId(R.id.nav_home);
@@ -100,6 +121,7 @@ public class HomeActivity extends AppCompatActivity {
         }
     }
 
+    // Ví dụ upload dữ liệu một lần: đang tắt để tránh ghi đè Firestore.
 //    private void uploadFruitsOnce() {
 //
 //        FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -137,58 +159,45 @@ public class HomeActivity extends AppCompatActivity {
 //        }
 //    }
 
-    private void loadFruitNamesFromFirestore(ListView listView) {
 
-        ArrayList<String> names = new ArrayList<>();
-
-        // Tạo Adapter để hiển thị dữ liệu lên ListView.
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(
-                this,
-                android.R.layout.simple_list_item_1,
-                names
-        );
-
-        listView.setAdapter(adapter);
-
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-
+    private void loadFruitsFromFirestore() {
+        // Lấy danh sách trái cây từ Cloud Firestore.
         // Lấy dữ liệu từ collection fruits.
-        db.collection("fruits")
-                .orderBy("sort_order")
+        FirebaseFirestore.getInstance()
+                .collection(AppConstants.COLLECTION_FRUITS)
+                .orderBy(AppConstants.FIELD_SORT_ORDER)
                 .get()
-                .addOnSuccessListener(querySnapshot -> {
+                .addOnSuccessListener(this::showFruitNames)
+                .addOnFailureListener(e ->
+                        Toast.makeText(this,
+                                "Không thể tải dữ liệu: " + e.getMessage(),
+                                Toast.LENGTH_LONG).show());
+    }
 
-                    // Xóa dữ liệu cũ trong danh sách.
-                    names.clear();
+    private void showFruitNames(QuerySnapshot querySnapshot) {
+        // Xóa dữ liệu cũ trong danh sách.
+        products.clear();
+        fruitNames.clear();
 
-                    // Duyệt từng document trả về.
-                    for (QueryDocumentSnapshot document : querySnapshot) {
-
-                        String name = document.getString("name");
-
-                        if (name != null) {
-                            names.add(name);
-                        }
-                    }
-
-                    // Thông báo dữ liệu đã thay đổi để ListView cập nhật.
-                    adapter.notifyDataSetChanged();
-                })
-                .addOnFailureListener(e -> {
-
-                    Toast.makeText(
-                            this,
-                            "Không thể tải dữ liệu: " + e.getMessage(),
-                            Toast.LENGTH_LONG
-                    ).show();
-                });
+        // Duyệt từng document trả về.
+        for (QueryDocumentSnapshot document : querySnapshot) {
+            Product product = FirestoreProductMapper.fromDocument(this, document);
+            products.add(product);
+            fruitNames.add(product.getName());
+        }
+        // Thông báo dữ liệu đã thay đổi để ListView cập nhật.
+        fruitAdapter.notifyDataSetChanged();
     }
 
     private void openProducts(int position) {
         Intent intent = new Intent(this, DetailActivity.class);
-        if (position >= 0) {
-            intent.putExtra("selected_position", position);
+
+        if (position >= 0 && position < products.size()) {
+            // Một Intent có thể mang nhiều cặp key-value.
+            intent.putExtra(AppConstants.EXTRA_SELECTED_POSITION, position);
+            intent.putExtra(AppConstants.EXTRA_SELECTED_PRODUCT, products.get(position));
         }
+
         startActivity(intent);
     }
 }

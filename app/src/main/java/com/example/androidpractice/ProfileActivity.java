@@ -4,6 +4,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.ImageButton;
 import android.widget.TextView;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 /**
@@ -16,13 +17,21 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
+        setupBackButton();
+        showProfileUsername();
+    }
+
+    private void setupBackButton() {
         // Đóng Profile và quay lại Home đang nằm dưới trong back stack.
         ImageButton btnBackProfile = findViewById(R.id.btnBackProfile);
         btnBackProfile.setOnClickListener(v -> finish());
+    }
 
+    private void showProfileUsername() {
         // Mở CÙNG vùng user_session mà LoginActivity đã ghi username vào.
-        SharedPreferences prefs = getSharedPreferences("user_session", MODE_PRIVATE);
-        String username = prefs.getString("username", "bạn");
+        SharedPreferences prefs = getSharedPreferences(
+                AppConstants.PREF_USER_SESSION, MODE_PRIVATE);
+        String username = prefs.getString(AppConstants.KEY_USERNAME, "bạn");
         if (username == null || username.isEmpty()) {
             username = "bạn";
         }

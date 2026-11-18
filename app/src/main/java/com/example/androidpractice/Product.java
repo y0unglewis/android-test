@@ -1,7 +1,11 @@
 package com.example.androidpractice;
 
+import java.io.Serializable;
+
 // Model lưu dữ liệu của MỘT loại trái cây; không tạo giao diện.
-public class Product {
+public class Product implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     // Trường private final chỉ gán khi tạo Product; class khác đọc qua getter.
     private final String name;
     private final String origin;
