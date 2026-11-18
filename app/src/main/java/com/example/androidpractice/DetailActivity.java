@@ -93,7 +93,7 @@ public class DetailActivity extends AppCompatActivity {
     private void showProducts(QuerySnapshot querySnapshot,
                               ListView listView, TextView tvProductCount) {
         ArrayList<Product> products = new ArrayList<>();
-        // Duyệt từng document trên Firebase để tạo danh sách Product.
+        // Duyệt từng document trên Firebase.
         for (QueryDocumentSnapshot document : querySnapshot) {
             products.add(FirestoreProductMapper.fromDocument(this, document));
         }
