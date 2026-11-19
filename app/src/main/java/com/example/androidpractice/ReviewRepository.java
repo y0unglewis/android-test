@@ -81,7 +81,7 @@ public class ReviewRepository {
     }
 
     public boolean isOwn(Review review) {
-        return !currentUser.isEmpty() && review.author.equalsIgnoreCase(currentUser);
+        return !currentUser.isEmpty() && review.author.equals(currentUser);
     }
 
     // Mỗi người chỉ có một đánh giá/sản phẩm; gửi lại sẽ cập nhật đánh giá cũ.

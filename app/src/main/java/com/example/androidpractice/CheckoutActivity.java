@@ -247,6 +247,10 @@ public class CheckoutActivity extends AppCompatActivity {
 
     private void reviewAndSubmit() {
         if (!validateForm()) return;
+        if (editingOrder == null && !isBuyNow && !repository.cartMatches(draftLines)) {
+            showChangedCartMessage();
+            return;
+        }
         String action = editingOrder == null ? "Tạo đơn demo" : "Lưu đơn demo";
         String message = "Tổng tạm tính: "
                 + OrderRepository.formatPrice(OrderRepository.totalOf(draftLines))
@@ -283,9 +287,13 @@ public class CheckoutActivity extends AppCompatActivity {
             OrderRepository.Order placed = isBuyNow
                     ? repository.placeDirectOrder(draftLines.get(0).product,
                             draftLines.get(0).quantity, recipient, phone, address, note, payment)
-                    : repository.placeOrder(recipient, phone, address, note, payment);
+                    : repository.placeOrder(draftLines, recipient, phone, address, note, payment);
             if (placed == null) {
-                showSaveError();
+                if (!isBuyNow && !repository.cartMatches(draftLines)) {
+                    showChangedCartMessage();
+                } else {
+                    showSaveError();
+                }
                 return;
             }
             Intent intent = new Intent(this, OrderDetailActivity.class);
@@ -298,5 +306,14 @@ public class CheckoutActivity extends AppCompatActivity {
     private void showSaveError() {
         Toast.makeText(this, "Không lưu được đơn. Dữ liệu cũ vẫn được giữ.",
                 Toast.LENGTH_LONG).show();
+    }
+
+    private void showChangedCartMessage() {
+        new MaterialAlertDialogBuilder(this)
+                .setTitle("Giỏ hàng đã thay đổi")
+                .setMessage("Sản phẩm hoặc số lượng trong giỏ không còn giống màn hình xác nhận. "
+                        + "Hãy kiểm tra lại trước khi đặt đơn.")
+                .setPositiveButton("Về giỏ hàng", (dialog, which) -> finish())
+                .show();
     }
 }

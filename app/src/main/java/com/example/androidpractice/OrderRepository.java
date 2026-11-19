@@ -90,7 +90,8 @@ public class OrderRepository {
                 AppConstants.PREF_USER_SESSION, Context.MODE_PRIVATE)
                 .getString(AppConstants.KEY_USERNAME, "");
         // Mỗi tài khoản demo có giỏ và lịch sử riêng; không dùng chung dữ liệu.
-        String userKey = username == null ? "" : username.trim().toLowerCase(Locale.ROOT);
+        // Giữ nguyên chữ hoa/thường như tài khoản đăng nhập để không lẫn dữ liệu.
+        String userKey = username == null ? "" : username.trim();
         cartKey = "cart:" + userKey;
         ordersKey = "orders:" + userKey;
     }
@@ -172,10 +173,16 @@ public class OrderRepository {
     }
 
     // Tạo đơn từ giỏ; chỉ xóa giỏ khi việc lưu đơn thành công.
-    public Order placeOrder(String recipient, String phone, String address,
+    public Order placeOrder(List<CartLine> checkedLines, String recipient, String phone, String address,
                             String note, String paymentMethod) {
         ArrayList<CartLine> lines = getCart();
+        // Không lưu đơn nếu giỏ đã khác với thông tin khách vừa xác nhận.
+        if (!sameCart(checkedLines, lines)) return null;
         return createOrder(lines, recipient, phone, address, note, paymentMethod, true);
+    }
+
+    public boolean cartMatches(List<CartLine> checkedLines) {
+        return !readError && sameCart(checkedLines, getCart()) && !readError;
     }
 
     // Mua ngay một mặt hàng, không xóa hoặc gộp với giỏ hiện tại.
@@ -348,6 +355,18 @@ public class OrderRepository {
     private boolean sameProduct(Product a, Product b) {
         return Objects.equals(a.getName(), b.getName())
                 && Objects.equals(a.getOrigin(), b.getOrigin());
+    }
+
+    private boolean sameCart(List<CartLine> expected, List<CartLine> current) {
+        if (expected == null || expected.size() != current.size()) return false;
+        for (int i = 0; i < expected.size(); i++) {
+            CartLine before = expected.get(i);
+            CartLine now = current.get(i);
+            if (!sameProduct(before.product, now.product)
+                    || before.product.getPrice() != now.product.getPrice()
+                    || before.quantity != now.quantity) return false;
+        }
+        return true;
     }
 
     private boolean validPayment(String method) {

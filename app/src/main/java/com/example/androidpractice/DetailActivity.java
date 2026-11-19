@@ -122,6 +122,9 @@ public class DetailActivity extends AppCompatActivity {
         bottomNav.setSelectedItemId(R.id.nav_products);
         bottomNav.setOnItemSelectedListener(item -> {
             if (item.getItemId() == R.id.nav_home) {
+                Intent intent = new Intent(this, HomeActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                startActivity(intent);
                 finish();
                 return true;
             }
