@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-
+<!-- Fresh Market Catalog: danh sách Product vẫn đọc từ Firestore. -->
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -7,46 +7,49 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/page_background"
-    android:fitsSystemWindows="true">
+    android:fitsSystemWindows="true"
+    android:background="@color/page_background">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:paddingTop="20dp"
+        android:paddingBottom="12dp"
         android:gravity="center_vertical"
-        android:paddingHorizontal="18dp"
-        android:paddingTop="18dp"
-        android:paddingBottom="10dp">
-        <!-- Nút này gọi finish() để quay về màn hình trước. -->
+        android:orientation="horizontal">
+
         <ImageButton
             android:id="@+id/btnBackHome"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:background="@drawable/bg_top_button"
             android:src="@drawable/ic_arrow_back"
-            android:scaleType="centerInside"
+            android:padding="12dp"
+            android:background="@drawable/bg_top_button"
+            android:tint="@color/brand_dark"
             android:contentDescription="@string/action_back" />
+
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:layout_marginStart="14dp"
+            android:layout_weight="1"
             android:orientation="vertical">
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Chi tiết sản phẩm"
+                android:text="Tất cả sản phẩm"
                 android:textStyle="bold"
-                android:textSize="23sp"
-                android:textColor="@color/text_primary" />
+                android:textColor="@color/text_primary"
+                android:textSize="24sp" />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:text="Thông tin các loại trái cây trong danh sách"
-                android:textSize="12sp"
-                android:textColor="@color/text_secondary" />
+                android:text="Nguồn gốc rõ ràng, lựa chọn dễ dàng"
+                android:textColor="@color/text_secondary"
+                android:textSize="12sp" />
         </LinearLayout>
     </LinearLayout>
 
@@ -54,47 +57,87 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
-        android:layout_marginVertical="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/bg_auth_card"
+        android:padding="16dp"
         android:orientation="horizontal"
         android:gravity="center_vertical">
-        <TextView
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/bg_fruit_icon"
+            android:src="@drawable/fruit_pear"
+            android:padding="7dp"
+            android:contentDescription="@string/product_image_description" />
+
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Trái cây tươi"
-            android:textColor="@color/brand_primary"
-            android:textStyle="bold"
-            android:textSize="14sp" />
-        <!-- Java điền số sản phẩm dựa trên products.size(). -->
+            android:layout_marginStart="13dp"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Bộ sưu tập trái cây"
+                android:textColor="@color/text_primary"
+                android:textStyle="bold"
+                android:textSize="15sp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:text="Thông tin &amp; giá tham khảo"
+                android:textColor="@color/text_secondary"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <!-- Java cập nhật chính xác số sản phẩm sau khi nhận Firebase. -->
         <TextView
             android:id="@+id/tvProductCount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="15 loại trái cây"
-            android:textColor="@color/text_secondary"
-            android:textSize="13sp" />
+            android:text="Đang tải..."
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:background="@drawable/bg_brand_chip"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="8dp"
+            android:textColor="@color/brand_primary" />
     </LinearLayout>
 
-    <!-- Mỗi dòng được ProductAdapter tạo từ item_product.xml. -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="22dp"
+        android:layout_marginBottom="7dp"
+        android:text="KHÁM PHÁ"
+        android:letterSpacing="0.12"
+        android:textSize="11sp"
+        android:textStyle="bold"
+        android:textColor="@color/brand_primary" />
+
     <ListView
         android:id="@+id/listViewProducts"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:paddingHorizontal="12dp"
+        android:paddingHorizontal="16dp"
         android:paddingBottom="12dp"
         android:clipToPadding="false"
+        android:scrollbars="none"
         android:divider="@android:color/transparent"
         android:dividerHeight="0dp" />
 
-    <!-- Tab Sản phẩm đang chọn; chọn Home sẽ quay về HomeActivity. -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNav"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:minHeight="64dp"
-        android:background="@color/surface_white"
-        android:elevation="8dp"
+        android:minHeight="66dp"
+        android:background="@drawable/bg_nav_surface"
+        android:elevation="12dp"
         app:menu="@menu/bottom_nav_menu"
         app:labelVisibilityMode="labeled"
         app:itemIconTint="@color/nav_item_tint"

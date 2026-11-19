@@ -1,23 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-
+<!-- Fresh Market Home: giữ nguyên ID để HomeActivity vẫn dùng Firestore/Intent như bài cũ. -->
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/page_background"
-    android:fitsSystemWindows="true">
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
 
+    <!-- Header: lời chào từ SharedPreferences, Profile và Logout. -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingHorizontal="20dp"
-        android:paddingTop="20dp"
-        android:paddingBottom="14dp"
         android:orientation="horizontal"
-        android:gravity="center_vertical">
+        android:gravity="center_vertical"
+        android:paddingStart="22dp"
+        android:paddingEnd="18dp"
+        android:paddingTop="18dp"
+        android:paddingBottom="16dp">
 
         <LinearLayout
             android:layout_width="0dp"
@@ -28,112 +30,189 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="FRUIT CATALOG"
+                android:text="FRESH  /  MARKET"
+                android:textColor="@color/brand_primary"
+                android:letterSpacing="0.16"
                 android:textStyle="bold"
-                android:letterSpacing="0.1"
-                android:textSize="12sp"
-                android:textColor="@color/brand_primary" />
+                android:textSize="11sp" />
 
             <TextView
                 android:id="@+id/tvWelcome"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:text="Xin chào!"
+                android:layout_marginTop="5dp"
+                android:text="Xin chào, bạn!"
+                android:textSize="24sp"
                 android:textStyle="bold"
-                android:textSize="21sp"
-                android:textColor="@color/text_primary" />
-
+                android:textColor="@color/text_primary"
+                android:maxLines="1"
+                android:ellipsize="end" />
         </LinearLayout>
 
-        <!-- Icon người dùng ở bên phải header, mở ProfileActivity khi chạm. -->
         <ImageButton
             android:id="@+id/btnProfile"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_marginEnd="8dp"
+            android:layout_width="46dp"
+            android:layout_height="46dp"
+            android:layout_marginStart="10dp"
             android:background="@drawable/bg_top_button"
             android:src="@drawable/ic_profile"
-            android:scaleType="centerInside"
+            android:padding="12dp"
+            android:tint="@color/brand_dark"
+            android:scaleType="fitCenter"
             android:contentDescription="@string/action_profile" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btnLogout"
             android:layout_width="wrap_content"
-            android:layout_height="48dp"
+            android:layout_height="46dp"
+            android:layout_marginStart="6dp"
             android:text="Đăng xuất"
+            android:textSize="12sp"
+            android:textStyle="bold"
             android:textAllCaps="false"
-            android:textSize="13sp"
-            android:backgroundTint="@color/nav_indicator"
-            android:textColor="@color/brand_dark" />
+            android:textColor="@color/brand_dark"
+            app:backgroundTint="@color/brand_soft"
+            app:cornerRadius="16dp" />
+    </LinearLayout>
 
+    <!-- Hero: không có tính năng mới, CTA vẫn gọi openProducts(-1). -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="4dp"
+        android:padding="20dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="@drawable/bg_highlight">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_brand_chip"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="6dp"
+                android:text="TƯƠI MỚI MỖI NGÀY"
+                android:letterSpacing="0.04"
+                android:textStyle="bold"
+                android:textSize="9sp"
+                android:textColor="@color/brand_dark" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="Chạm vào vị tươi\ncủa thiên nhiên."
+                android:textSize="22sp"
+                android:textStyle="bold"
+                android:lineSpacingExtra="3dp"
+                android:textColor="@color/white" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="7dp"
+                android:text="Khám phá trái cây và giá tham khảo."
+                android:textSize="12sp"
+                android:textColor="@color/hero_text_soft" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnOpenProducts"
+                android:layout_width="wrap_content"
+                android:layout_height="46dp"
+                android:layout_marginTop="12dp"
+                android:text="Xem sản phẩm"
+                android:textAllCaps="false"
+                android:textStyle="bold"
+                android:textSize="13sp"
+                android:textColor="@color/brand_dark"
+                app:backgroundTint="@color/white"
+                app:cornerRadius="14dp" />
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="94dp"
+            android:layout_height="104dp"
+            android:layout_marginStart="8dp"
+            android:padding="12dp"
+            android:background="@drawable/bg_fruit_icon"
+            android:src="@drawable/fruit_apple"
+            android:scaleType="fitCenter"
+            android:contentDescription="@string/product_image_description" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="18dp"
-        android:background="@drawable/bg_highlight"
-        android:orientation="vertical"
-        android:padding="18dp">
+        android:layout_marginStart="22dp"
+        android:layout_marginEnd="22dp"
+        android:layout_marginTop="23dp"
+        android:layout_marginBottom="10dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Vườn trái cây"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:textColor="@color/text_primary" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:text="Chọn một loại để xem thông tin"
+                android:textSize="12sp"
+                android:textColor="@color/text_secondary" />
+        </LinearLayout>
 
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="15 loại trái cây"
-            android:textSize="20sp"
+            android:text="DANH MỤC"
+            android:textSize="10sp"
+            android:letterSpacing="0.04"
             android:textStyle="bold"
-            android:textColor="@color/brand_dark" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
-            android:layout_marginBottom="12dp"
-            android:text="Từ nguồn gốc đến giá tham khảo, mọi thông tin trong một nơi."
-            android:textSize="13sp"
-            android:textColor="@color/text_secondary" />
-
-        <Button
-            android:id="@+id/btnOpenProducts"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:text="Xem chi tiết sản phẩm"
-            android:textAllCaps="false"
-            android:backgroundTint="@color/brand_primary"
-            android:textColor="@color/white" />
-
+            android:textColor="@color/chip_text"
+            android:paddingHorizontal="12dp"
+            android:paddingVertical="8dp"
+            android:background="@drawable/bg_brand_chip" />
     </LinearLayout>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="18dp"
-        android:layout_marginBottom="8dp"
-        android:text="Danh sách trái cây"
-        android:textSize="17sp"
-        android:textStyle="bold"
-        android:textColor="@color/text_primary" />
-
+    <!-- Home và Detail dùng chung ProductAdapter, mỗi item có ảnh, tên, giá. -->
     <ListView
         android:id="@+id/listView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:paddingHorizontal="18dp"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:paddingBottom="12dp"
         android:clipToPadding="false"
-        android:divider="@color/line_soft"
-        android:dividerHeight="1dp" />
+        android:scrollbars="none"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="0dp" />
 
-    <!-- BottomNavigationView dùng menu Trang chủ và Sản phẩm; logic click nằm ở Java. -->
+    <!-- Giữ nguyên hai tab và listener trong HomeActivity. -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNav"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:minHeight="64dp"
-        android:background="@color/surface_white"
-        android:elevation="8dp"
+        android:minHeight="66dp"
+        android:background="@drawable/bg_nav_surface"
+        android:elevation="12dp"
         app:menu="@menu/bottom_nav_menu"
         app:labelVisibilityMode="labeled"
         app:itemIconTint="@color/nav_item_tint"

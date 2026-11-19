@@ -1,29 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-
+<!-- Một item của ProductAdapter. Giữ đủ 5 ID đang được Java bind. -->
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:paddingHorizontal="4dp"
-    android:paddingVertical="6dp">
+    android:paddingTop="4dp"
+    android:paddingBottom="8dp">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center_vertical"
         android:padding="14dp"
+        android:minHeight="132dp"
         android:background="@drawable/bg_product_card"
         android:elevation="2dp">
 
-        <!-- ImageView hiển thị drawable từ product.getImageResId() bằng setImageResource(). -->
+        <!-- Ảnh từ product.getImageResId(). -->
         <ImageView
             android:id="@+id/imgProduct"
-            android:layout_width="86dp"
-            android:layout_height="86dp"
-            android:padding="8dp"
-            android:scaleType="fitCenter"
+            android:layout_width="96dp"
+            android:layout_height="106dp"
+            android:padding="12dp"
             android:src="@drawable/fruit_apple"
+            android:scaleType="fitCenter"
             android:background="@drawable/bg_fruit_icon"
             android:contentDescription="@string/product_image_description" />
 
@@ -34,45 +37,48 @@
             android:layout_marginStart="14dp"
             android:orientation="vertical">
 
-            <!-- Adapter dùng setText() để đặt tên sản phẩm. -->
             <TextView
                 android:id="@+id/tvProductName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Tên sản phẩm"
+                android:text="Tên trái cây"
+                android:maxLines="1"
+                android:ellipsize="end"
                 android:textStyle="bold"
                 android:textSize="18sp"
                 android:textColor="@color/text_primary" />
-            <!-- Adapter ghép chữ Xuất xứ với product.getOrigin(). -->
+
             <TextView
                 android:id="@+id/tvProductOrigin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:text="Xuất xứ"
+                android:maxLines="1"
+                android:ellipsize="end"
                 android:textSize="12sp"
                 android:textColor="@color/brand_primary" />
-            <!-- maxLines và ellipsize giới hạn mô tả quá dài. -->
+
             <TextView
                 android:id="@+id/tvProductDescription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="7dp"
-                android:maxLines="3"
+                android:layout_marginTop="8dp"
+                android:text="Mô tả trái cây"
+                android:maxLines="2"
                 android:ellipsize="end"
-                android:text="Mô tả sản phẩm"
                 android:lineSpacingExtra="2dp"
-                android:textSize="13sp"
+                android:textSize="12sp"
                 android:textColor="@color/text_secondary" />
-            <!-- Adapter format giá theo Locale vi-VN rồi gán cho TextView. -->
+
             <TextView
                 android:id="@+id/tvProductPrice"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:text="0 đ/kg"
+                android:textSize="18sp"
                 android:textStyle="bold"
-                android:textSize="17sp"
                 android:textColor="@color/price_color" />
         </LinearLayout>
     </LinearLayout>
