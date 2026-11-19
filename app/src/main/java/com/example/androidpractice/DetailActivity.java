@@ -1,6 +1,5 @@
 package com.example.androidpractice;
 
-import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -16,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -217,7 +217,7 @@ public class DetailActivity extends AppCompatActivity {
             }
         }
         Collections.sort(origins.subList(1, origins.size()), String.CASE_INSENSITIVE_ORDER);
-        new AlertDialog.Builder(this)
+        new MaterialAlertDialogBuilder(this)
                 .setTitle("Lọc theo xuất xứ")
                 .setItems(origins.toArray(new String[0]), (dialog, which) -> {
                     selectedOrigin = which == 0 ? null : origins.get(which);
@@ -230,7 +230,7 @@ public class DetailActivity extends AppCompatActivity {
     private void showPriceChoices() {
         String[] choices = {"Mọi mức giá", "Dưới 30.000 đ/kg", "30.000–60.000 đ/kg",
                 "Trên 60.000 đ/kg"};
-        new AlertDialog.Builder(this)
+        new MaterialAlertDialogBuilder(this)
                 .setTitle("Lọc theo giá")
                 .setSingleChoiceItems(choices, priceFilter, (dialog, which) -> {
                     priceFilter = which;
@@ -245,7 +245,7 @@ public class DetailActivity extends AppCompatActivity {
     private void showSortChoices() {
         String[] choices = {"Thứ tự mặc định", "Giá: thấp đến cao",
                 "Giá: cao đến thấp", "Tên: A đến Z"};
-        new AlertDialog.Builder(this)
+        new MaterialAlertDialogBuilder(this)
                 .setTitle("Sắp xếp sản phẩm")
                 .setSingleChoiceItems(choices, sortMode, (dialog, which) -> {
                     sortMode = which;
