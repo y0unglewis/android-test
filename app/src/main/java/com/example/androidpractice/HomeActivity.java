@@ -58,7 +58,7 @@ public class HomeActivity extends AppCompatActivity {
         fruitAdapter = new ProductAdapter(this, products);
         listView.setAdapter(fruitAdapter);
         listView.setOnItemClickListener((parent, view, position, id) ->
-                openProducts(position));
+                openProductDetails(products.get(position)));
 
         loadFruitsFromFirestore();
     }
@@ -201,6 +201,13 @@ public class HomeActivity extends AppCompatActivity {
         status.setVisibility(visible ? View.VISIBLE : View.GONE);
     }
 
+    // Bấm card mở đúng sản phẩm; Intent key lấy từ AppConstants của bài trước.
+    private void openProductDetails(Product product) {
+        Intent intent = new Intent(this, ProductDetailActivity.class);
+        intent.putExtra(AppConstants.EXTRA_SELECTED_PRODUCT, product);
+        startActivity(intent);
+    }
+
     private void openProducts(int position) {
         Intent intent = new Intent(this, DetailActivity.class);
 
@@ -213,3 +220,4 @@ public class HomeActivity extends AppCompatActivity {
         startActivity(intent);
     }
 }
+

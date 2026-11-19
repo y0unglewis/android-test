@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Nền ảnh sản phẩm tinh tế, không cần ảnh từ mạng. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
+    <gradient
+        android:angle="0"
+        android:startColor="#E8F4E9"
+        android:endColor="#FFF6E6" />
+    <corners android:radius="28dp" />
+</shape>
+

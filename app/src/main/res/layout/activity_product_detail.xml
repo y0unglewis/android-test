@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Trang chi tiết mới: hiển thị Product nhận qua Intent, không thêm giỏ hàng/thanh toán. -->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:fitsSystemWindows="true"
+    android:background="@color/page_background">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:paddingTop="16dp"
+        android:paddingBottom="12dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+        <ImageButton
+            android:id="@+id/btnBackProductDetail"
+            android:layout_width="46dp"
+            android:layout_height="46dp"
+            android:src="@drawable/ic_arrow_back"
+            android:background="@drawable/bg_top_button"
+            android:padding="12dp"
+            android:tint="@color/brand_dark"
+            android:contentDescription="@string/action_back" />
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="16dp"
+            android:text="Chi tiết sản phẩm"
+            android:textColor="@color/text_primary"
+            android:textSize="19sp"
+            android:textStyle="bold" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="FRESH"
+            android:letterSpacing="0.08"
+            android:textStyle="bold"
+            android:textColor="@color/brand_primary"
+            android:textSize="11sp" />
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true"
+        android:clipToPadding="false"
+        android:scrollbars="none">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:paddingBottom="22dp"
+            android:orientation="vertical">
+
+            <!-- Ảnh lớn là drawable gắn với chính Product của Firestore. -->
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:background="@drawable/bg_product_showcase">
+                <ImageView
+                    android:id="@+id/imgDetailProduct"
+                    android:layout_width="210dp"
+                    android:layout_height="205dp"
+                    android:layout_gravity="center"
+                    android:padding="12dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/fruit_apple"
+                    android:contentDescription="@string/product_image_description" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="top|start"
+                    android:layout_margin="16dp"
+                    android:paddingHorizontal="12dp"
+                    android:paddingVertical="7dp"
+                    android:background="@drawable/bg_brand_chip"
+                    android:text="TRÁI CÂY"
+                    android:letterSpacing="0.1"
+                    android:textColor="@color/brand_dark"
+                    android:textSize="10sp"
+                    android:textStyle="bold" />
+            </FrameLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="23dp"
+                android:text="FRESH MARKET  /  SẢN PHẨM"
+                android:letterSpacing="0.13"
+                android:textColor="@color/brand_primary"
+                android:textSize="10sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvDetailProductName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Tên sản phẩm"
+                android:textColor="@color/text_primary"
+                android:textSize="27sp"
+                android:textStyle="bold"
+                android:maxLines="2" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/tvDetailProductPrice"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="0 đ/kg"
+                    android:textColor="@color/price_color"
+                    android:textSize="26sp"
+                    android:textStyle="bold" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="12dp"
+                    android:paddingVertical="7dp"
+                    android:background="@drawable/bg_brand_chip"
+                    android:text="Giá tham khảo"
+                    android:textColor="@color/brand_primary"
+                    android:textSize="11sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="20dp"
+                android:background="@color/line_soft" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="19dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+                <ImageView
+                    android:layout_width="46dp"
+                    android:layout_height="46dp"
+                    android:padding="9dp"
+                    android:background="@drawable/bg_fruit_icon"
+                    android:src="@drawable/fruit_pear"
+                    android:contentDescription="@string/product_image_description" />
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="12dp"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Xuất xứ"
+                        android:textColor="@color/text_secondary"
+                        android:textSize="12sp" />
+                    <TextView
+                        android:id="@+id/tvDetailProductOrigin"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp"
+                        android:text="Đang cập nhật"
+                        android:textColor="@color/text_primary"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:padding="19dp"
+                android:orientation="vertical"
+                android:background="@drawable/bg_auth_card">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Thông tin sản phẩm"
+                    android:textColor="@color/text_primary"
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/tvDetailProductDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="Thông tin chi tiết từ Firebase"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="14sp"
+                    android:lineSpacingExtra="5dp" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Thông tin và giá được lấy từ cơ sở dữ liệu Firestore của bài thực hành."
+                android:textSize="12sp"
+                android:lineSpacingExtra="4dp"
+                android:textColor="@color/text_secondary" />
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- Không tạo nút Mua/Thêm giỏ hàng vì chưa có nghiệp vụ tương ứng. -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:paddingTop="12dp"
+        android:paddingBottom="16dp"
+        android:background="@color/surface_white"
+        android:elevation="12dp"
+        android:orientation="vertical">
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnBrowseMoreProducts"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:text="Khám phá thêm sản phẩm"
+            android:textAllCaps="false"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            app:backgroundTint="@color/brand_primary"
+            app:cornerRadius="16dp" />
+    </LinearLayout>
+</LinearLayout>
+

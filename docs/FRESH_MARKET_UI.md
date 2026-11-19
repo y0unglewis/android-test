@@ -1,54 +1,47 @@
 # Fresh Market UI — Android Practice (19/11/2026)
 
 ## Mục tiêu
-Làm lại **giao diện** cho project thực hành trái cây theo phong cách sản phẩm: xanh lá – trắng kem, thẻ sản phẩm, phân cấp chữ và thanh điều hướng đồng bộ. Vẫn là ứng dụng bài tập Android Java + XML, **không phải app thương mại**.
+Giao diện Java + XML theo phong cách cửa hàng trái cây: Home, danh sách sản phẩm có tìm kiếm/bộ lọc/sắp xếp, **trang chi tiết riêng**, Login/Register/Profile đồng bộ. **Đây là bài thực hành**, không có mua hàng hay thanh toán.
 
-## Những điều phải giữ
-1. **Không xóa bài cũ.** Toàn bộ 5 layout Activity, `item_product.xml` và `colors.xml` trước khi sửa đã được lưu nguyên văn trong [`docs/legacy-ui/2026-11-19/`](legacy-ui/2026-11-19/). `activity_main_2.xml`, `FruitDatabaseHelper.java`, `DataSource.java` không thay đổi; đoạn SQLite trong `HomeActivity` và `DetailActivity` vẫn là comment.
-2. **Không đổi logic.** Login/Register dùng `DemoAuth`, phiên đăng nhập dùng `SharedPreferences`; danh sách trái cây lấy từ Cloud Firestore theo `sort_order`. `uploadFruitsOnce()` vẫn comment và không được gọi tự động. Không sửa Firestore rules/dữ liệu.
-3. **Không thêm tính năng khác.** Không giỏ hàng, checkout, tìm kiếm giả, đăng nhập Google hoặc backend mới.
-4. **Giữ `onCreate()` ngắn.** `onCreate()` chỉ gọi các hàm thiết lập đã tách: `setup...`, `show...`. Phần này đã có từ bài refactor trước, được giữ nguyên.
-5. **`Intent.putExtra()` dùng constants.** `AppConstants.EXTRA_SELECTED_POSITION` và `AppConstants.EXTRA_SELECTED_PRODUCT`, không hardcode chuỗi. `Product` tiếp tục triển khai `Serializable`.
+## Quy tắc giữ nguyên
+1. **Không xóa bài cũ.** 7 file XML của bài trước được lưu nguyên nội dung tại [docs/legacy-ui/2026-11-19/](legacy-ui/2026-11-19/). File `FruitDatabaseHelper.java`, `DataSource.java`, các đoạn SQLite **đã comment** trong Home/Detail vẫn được giữ để cô kiểm tra.
+2. **Không thay đổi dữ liệu.** Login/Register vẫn dùng `DemoAuth` + `SharedPreferences`. Firestore `fruits` là nguồn dữ liệu sản phẩm, sắp xếp lần đầu theo `sort_order`. Không ghi Firestore và không tự kích hoạt `uploadFruitsOnce()`.
+3. **Không thêm tính năng chưa học.** Không giỏ hàng, checkout, thanh toán, đánh giá giả, Google login hoặc backend mới.
+4. **`onCreate()` ngắn.** Mỗi Activity gọi các hàm nhỏ xử lý UI/Intent/Firestore và không chất logic vào `onCreate()`.
+5. **Intent key bằng constants.** `AppConstants.EXTRA_SELECTED_PRODUCT` (đối tượng `Product implements Serializable`) và `AppConstants.EXTRA_SELECTED_POSITION` được dùng thay chuỗi viết trực tiếp.
 
-## Màn hình mới
-| Màn hình | Tập tin Android đang chạy | Tính năng cũ vẫn giữ |
-|---|---|---|
-| Home | `app/src/main/res/layout/activity_home.xml` | Lời chào, Profile, Logout, Firestore, click trái cây, BottomNavigation |
-| Catalog/Detail | `activity_detail.xml` | Hiển thị toàn bộ trái cây từ Firestore, cuộn đến sản phẩm chọn, Back, BottomNavigation |
-| Login | `activity_login.xml` | Tài khoản demo, xác thực cục bộ, link Register |
-| Register | `activity_register.xml` | Kiểm tra username/mật khẩu/xác nhận, lưu tài khoản demo |
-| Profile | `activity_profile.xml` | Đọc username từ SharedPreferences, full name vẫn chỉ là ô demo disabled |
-| Card trái cây | `item_product.xml` | `ProductAdapter` lấy hình/tên/xuất xứ/mô tả/giá như cũ |
+## Màn hình
+| Màn hình | File chính | Hành vi |
+| --- | --- | --- |
+| Home | `HomeActivity.java`, `activity_home.xml` | Lời chào, hero, trái cây nổi bật, Profile, Logout, bottom nav. Chạm card mở **chi tiết sản phẩm** |
+| Danh sách sản phẩm | `DetailActivity.java`, `activity_detail.xml` | Một lần lấy Firestore; tìm kiếm theo tên/xuất xứ/mô tả (không phân biệt dấu), lọc xuất xứ và giá, sắp xếp mặc định/giá/tên, xóa lọc, empty/error state |
+| Chi tiết sản phẩm (mới) | `ProductDetailActivity.java`, `activity_product_detail.xml` | Nhận `Product` qua Intent, hiển thị ảnh/tên/giá/xuất xứ/mô tả, nút xem sản phẩm khác. Không gọi Firestore lần nữa |
+| Login/Register | `activity_login.xml`, `activity_register.xml` | Form Material, xác thực `DemoAuth` cũ |
+| Profile | `activity_profile.xml` | Đọc username từ SharedPreferences |
+| Card | `item_product.xml`, `ProductAdapter.java` | Ảnh, tên, xuất xứ, mô tả, giá, chỉ dẫn xem chi tiết |
 
-Điểm duy nhất thay đổi trong Java là `HomeActivity` **dùng lại `ProductAdapter`** (đã có sẵn ở bài trước) thay cho `ArrayAdapter<String>` mặc định; các card có thể hiển thị thông tin Firestore. Không có request Firebase mới hay thay đổi dữ liệu.
+### Cách hoạt động tìm kiếm/lọc
+- `allProducts` giữ nguyên toàn bộ kết quả lấy từ Firestore, theo thứ tự `sort_order`.
+- `visibleProducts` là danh sách hiển thị sau khi lọc. `ProductAdapter` trỏ đến danh sách này.
+- TextWatcher thay đổi `searchQuery`, rồi gọi `applyFilters()` để lọc **trên bộ nhớ**, không tốn thêm lượt truy vấn Firebase.
+- Giá lọc: dưới 30.000 đ/kg, từ 30.000 đến 60.000 đ/kg, trên 60.000 đ/kg. Xuất xứ được tạo từ giá trị thật đang có trong Firestore, không hardcode địa danh.
+- Sắp xếp: theo Firestore, giá tăng, giá giảm, tên A–Z. `notifyDataSetChanged()` yêu cầu `ListView` cập nhật.
+- Nhấn item: gửi `Product` sang `ProductDetailActivity` qua `putExtra(AppConstants.EXTRA_SELECTED_PRODUCT, product)`.
 
-## Kiểm tra trước khi merge
-- [ ] `git status` sạch, chạy `.\gradlew.bat assembleDebug` báo `BUILD SUCCESSFUL` trên Android Studio
-- [ ] Login bằng `demo / 123456`; tên đăng nhập hiển thị đúng trên Home và Profile
-- [ ] Register với username/mật khẩu hợp lệ; quay về Login đăng nhập được
-- [ ] Home tải trái cây, hiển thị đúng ảnh và giá trong card; chọn một loại sẽ mở Detail và cuộn đúng vị trí
-- [ ] Mở Catalog bằng nút CTA/bottom nav vẫn hiện đủ sản phẩm; nhấn Back trở lại Home
-- [ ] Logout xóa đúng username session, trở về Login
-- [ ] Màn hình nhỏ khoảng 360–390dp, bàn phím khi Login/Register, danh sách cuộn và thanh điều hướng
-- [ ] Firestore không bị ghi đè; code SQLite và `uploadFruitsOnce()` vẫn là comment
+### Lỗi build đã gặp
+Ở bản đầu PR #12, `app:itemActiveIndicatorColor` trong BottomNavigationView gây lỗi `Android resource linking failed` với thư viện Material 1.10.0. Bản này **đã xóa thuộc tính không tương thích ở cả hai layout Home/Detail** nhưng giữ BottomNavigationView và các màu tab còn lại.
 
-**Lưu ý:** Kiểm tra cấu trúc XML và tham chiếu ID/resource không thay thế cho việc chạy build Android và kiểm thử trên thiết bị. Giữ PR ở trạng thái Draft đến khi chạy thử.
+## Kiểm tra trước khi merge PR #12
+- [ ] `git fetch origin`, cập nhật nhánh `feature/fresh-market-ui-20261119` và `.\gradlew.bat assembleDebug` báo **BUILD SUCCESSFUL**.
+- [ ] Login bằng demo; Home hiển thị đúng ảnh, tên, giá sản phẩm Firestore.
+- [ ] Chọn card Home ➜ ProductDetail ➜ Back; mở danh sách từ nút CTA và bottom nav.
+- [ ] Tìm kiếm tên có dấu/không dấu và theo xuất xứ (ví dụ `Binh Phuoc`), kiểm tra danh sách giảm đúng.
+- [ ] Chọn từng lọc giá, xuất xứ, sắp xếp giá thấp/cao/tên. Bấm **Xóa lọc** trả về đủ sản phẩm mặc định.
+- [ ] Tìm từ không có ➜ có thông báo rỗng, không crash.
+- [ ] Tắt Internet thử lỗi Firestore/Thử tải lại.
+- [ ] Chạm card trong Catalog ➜ thông tin trang ProductDetail khớp mặt hàng đã chọn.
+- [ ] Register, Profile, Logout, Back stack còn hoạt động; code SQLite/upload đã comment vẫn hiện trong source.
+- [ ] Kiểm tra thiết bị 360–390dp, font lớn, bàn phím, danh sách dài và cuộn các chip lọc ngang.
 
-## Bổ sung UX/Material 3 ngày 19/11/2026
-- Home banner được rút gọn câu chữ và kích cỡ ảnh minh họa để ưu tiên hiển thị đủ CTA ở màn 360dp.
-- Home hiển thị rõ ba trạng thái danh sách: **đang tải**, **chưa có dữ liệu**, **lỗi kết nối**; đây chỉ là trình bày trạng thái của yêu cầu Firestore đang có, không phát sinh API hay tính năng mới.
-- `ProductAdapter` giữ nguyên code, nhưng `item_product.xml` dùng `MaterialCardView`, có kích cỡ ảnh nhỏ gọn và cho phép tên dài hiển thị hai dòng.
-- Form Login/Register dùng `TextInputLayout` + `TextInputEditText` từ thư viện Material có sẵn; các ID EditText không thay đổi và vẫn dùng `DemoAuth`, `setError` như cũ.
-- BottomNavigation có active indicator theo tông màu thương hiệu; tăng độ tương phản cho chữ phụ và giá.
-- `HomeActivity.onCreate()` vẫn chỉ gọi các hàm con; phần trạng thái được xử lý trong `showFruitStatus()` riêng, không thay đổi đường truyền `Intent.putExtra(AppConstants.EXTRA_...)`.
+**Trạng thái nghiệm thu:** Code được kiểm tra tĩnh; cần build và thử trực tiếp bằng Android Studio để xác nhận giao diện Android thực tế. Chưa merge PR vào `develop` hay `main`.
 
-### Checklist giao diện trước khi merge
-- [ ] Android Studio build `assembleDebug` thành công; chạy app trên emulator/điện thoại.
-- [ ] 360dp, 390dp, màn ngang: nút Profile/Logout, banner, giá card và bottom nav không bị đè/cắt.
-- [ ] Font scale 1.15–1.3: tên dài, nhãn ô nhập, giá, nút Đăng nhập/Đăng ký vẫn đọc và chạm được.
-- [ ] Form nhập liệu focus và lỗi `EditText.setError()` trên `TextInputEditText` vẫn dễ đọc; bàn phím không che nút.
-- [ ] Home có trạng thái tải và không có dữ liệu; nếu Firestore lỗi, thông báo hiện rõ.
-- [ ] Click trái cây trên Home sang Catalog đúng đối tượng và đúng vị trí; Back/Logout/Profile vẫn hoạt động.
-- [ ] Kiểm tra xem bản cũ ở `docs/legacy-ui/2026-11-19/` và SQLite đã comment có thể giải thích cho giảng viên.
-
-**Phạm vi kiểm tra của trợ lý:** Đã đối chiếu tĩnh XML,  ID, các đường dẫn resource và source Java; **không xác nhận giao diện đã hiển thị đẹp trên thiết bị nếu chưa có build/screenshot thực tế**.

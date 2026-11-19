@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Fresh Market Catalog: danh sách Product vẫn đọc từ Firestore. -->
+<!-- Fresh Market Catalog: tìm kiếm/lọc trên dữ liệu Firestore đã tải; ID cũ giữ nguyên. -->
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -10,20 +10,21 @@
     android:fitsSystemWindows="true"
     android:background="@color/page_background">
 
+    <!-- Thanh tiêu đề gọn, không làm mất diện tích danh sách. -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
         android:paddingStart="20dp"
         android:paddingEnd="20dp"
-        android:paddingTop="20dp"
-        android:paddingBottom="12dp"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
+        android:paddingTop="16dp"
+        android:paddingBottom="8dp">
 
         <ImageButton
             android:id="@+id/btnBackHome"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:layout_width="46dp"
+            android:layout_height="46dp"
             android:src="@drawable/ic_arrow_back"
             android:padding="12dp"
             android:background="@drawable/bg_top_button"
@@ -33,103 +34,218 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="14dp"
             android:layout_weight="1"
+            android:layout_marginStart="14dp"
             android:orientation="vertical">
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Tất cả sản phẩm"
+                android:text="Khám phá trái cây"
                 android:textStyle="bold"
                 android:textColor="@color/text_primary"
-                android:textSize="24sp" />
+                android:textSize="23sp" />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:text="Nguồn gốc rõ ràng, lựa chọn dễ dàng"
+                android:layout_marginTop="2dp"
+                android:text="Tìm loại quả hợp với bạn"
                 android:textColor="@color/text_secondary"
                 android:textSize="12sp" />
         </LinearLayout>
+
+        <ImageView
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:padding="8dp"
+            android:background="@drawable/bg_fruit_icon"
+            android:src="@drawable/fruit_pear"
+            android:contentDescription="@string/product_image_description" />
     </LinearLayout>
+
+    <!-- Search Material: nhập tên trái cây, xuất xứ, hoặc mô tả. -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="10dp"
+        android:hint="Tìm trái cây, xuất xứ..."
+        app:boxBackgroundMode="outline"
+        app:boxBackgroundColor="@color/surface_white"
+        app:boxStrokeColor="@color/brand_primary"
+        app:boxCornerRadiusTopStart="18dp"
+        app:boxCornerRadiusTopEnd="18dp"
+        app:boxCornerRadiusBottomStart="18dp"
+        app:boxCornerRadiusBottomEnd="18dp"
+        app:startIconDrawable="@drawable/ic_search"
+        app:startIconTint="@color/brand_primary">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etSearchProducts"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:inputType="text"
+            android:imeOptions="actionSearch"
+            android:textSize="14sp"
+            android:textColor="@color/text_primary" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Các bộ lọc cuộn ngang để không bị tràn trên màn 360dp. -->
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:scrollbars="none"
+        android:fillViewport="false">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnFilterOrigin"
+                style="@style/Widget.Material3.Button.OutlinedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="44dp"
+                android:minHeight="44dp"
+                android:text="Xuất xứ  ⌄"
+                android:textAllCaps="false"
+                android:textSize="12sp"
+                android:textColor="@color/brand_dark"
+                app:strokeColor="@color/line_soft"
+                app:cornerRadius="18dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnFilterPrice"
+                style="@style/Widget.Material3.Button.OutlinedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="44dp"
+                android:minHeight="44dp"
+                android:layout_marginStart="8dp"
+                android:text="Mức giá  ⌄"
+                android:textAllCaps="false"
+                android:textSize="12sp"
+                android:textColor="@color/brand_dark"
+                app:strokeColor="@color/line_soft"
+                app:cornerRadius="18dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnSortProducts"
+                style="@style/Widget.Material3.Button.OutlinedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="44dp"
+                android:minHeight="44dp"
+                android:layout_marginStart="8dp"
+                android:text="Sắp xếp  ⌄"
+                android:textAllCaps="false"
+                android:textSize="12sp"
+                android:textColor="@color/brand_dark"
+                app:strokeColor="@color/line_soft"
+                app:cornerRadius="18dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnClearFilters"
+                style="@style/Widget.Material3.Button.TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="44dp"
+                android:minHeight="44dp"
+                android:layout_marginStart="4dp"
+                android:text="Xóa lọc"
+                android:textAllCaps="false"
+                android:textSize="12sp"
+                android:textColor="@color/price_color"
+                android:visibility="gone" />
+        </LinearLayout>
+    </HorizontalScrollView>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="16dp"
-        android:background="@drawable/bg_auth_card"
-        android:padding="16dp"
-        android:orientation="horizontal"
-        android:gravity="center_vertical">
-
-        <ImageView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:background="@drawable/bg_fruit_icon"
-            android:src="@drawable/fruit_pear"
-            android:padding="7dp"
-            android:contentDescription="@string/product_image_description" />
-
-        <LinearLayout
+        android:layout_marginStart="23dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="17dp"
+        android:layout_marginBottom="8dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+        <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:layout_marginStart="13dp"
-            android:orientation="vertical">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Bộ sưu tập trái cây"
-                android:textColor="@color/text_primary"
-                android:textStyle="bold"
-                android:textSize="15sp" />
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="3dp"
-                android:text="Thông tin &amp; giá tham khảo"
-                android:textColor="@color/text_secondary"
-                android:textSize="12sp" />
-        </LinearLayout>
-
-        <!-- Java cập nhật chính xác số sản phẩm sau khi nhận Firebase. -->
+            android:text="DANH SÁCH SẢN PHẨM"
+            android:letterSpacing="0.09"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            android:textColor="@color/brand_primary" />
         <TextView
             android:id="@+id/tvProductCount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Đang tải..."
-            android:textSize="12sp"
+            android:textSize="11sp"
             android:textStyle="bold"
             android:background="@drawable/bg_brand_chip"
-            android:paddingHorizontal="10dp"
-            android:paddingVertical="8dp"
+            android:paddingHorizontal="12dp"
+            android:paddingVertical="7dp"
             android:textColor="@color/brand_primary" />
     </LinearLayout>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="22dp"
-        android:layout_marginBottom="7dp"
-        android:text="KHÁM PHÁ"
-        android:letterSpacing="0.12"
-        android:textSize="11sp"
-        android:textStyle="bold"
-        android:textColor="@color/brand_primary" />
-
-    <ListView
-        android:id="@+id/listViewProducts"
+    <!-- Empty state thay cho khoảng trống khi tìm không có kết quả. -->
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:paddingHorizontal="16dp"
-        android:paddingBottom="12dp"
-        android:clipToPadding="false"
-        android:scrollbars="none"
-        android:divider="@android:color/transparent"
-        android:dividerHeight="0dp" />
+        android:layout_weight="1">
+        <ListView
+            android:id="@+id/listViewProducts"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingHorizontal="16dp"
+            android:paddingBottom="12dp"
+            android:clipToPadding="false"
+            android:scrollbars="none"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="0dp" />
+
+        <LinearLayout
+            android:id="@+id/productEmptyState"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="28dp"
+            android:visibility="gone">
+            <ImageView
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:padding="12dp"
+                android:background="@drawable/bg_fruit_icon"
+                android:src="@drawable/fruit_apple"
+                android:contentDescription="@string/product_image_description" />
+            <TextView
+                android:id="@+id/tvProductEmpty"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Không có sản phẩm phù hợp"
+                android:textAlignment="center"
+                android:textColor="@color/text_secondary"
+                android:textSize="14sp"
+                android:lineSpacingExtra="4dp" />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnRetryProducts"
+                android:layout_width="wrap_content"
+                android:layout_height="46dp"
+                android:layout_marginTop="14dp"
+                android:text="Thử tải lại"
+                android:textAllCaps="false"
+                android:visibility="gone"
+                app:cornerRadius="16dp" />
+        </LinearLayout>
+    </FrameLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNav"
@@ -140,7 +256,7 @@
         android:elevation="12dp"
         app:menu="@menu/bottom_nav_menu"
         app:labelVisibilityMode="labeled"
-        app:itemActiveIndicatorColor="@color/brand_soft"
         app:itemIconTint="@color/nav_item_tint"
         app:itemTextColor="@color/nav_item_tint" />
 </LinearLayout>
+
