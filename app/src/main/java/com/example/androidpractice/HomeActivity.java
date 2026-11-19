@@ -73,7 +73,7 @@ public class HomeActivity extends AppCompatActivity {
 
     private void setupProductsButton() {
         Button btnOpenProducts = findViewById(R.id.btnOpenProducts);
-        btnOpenProducts.setOnClickListener(v -> openProducts(-1));
+        btnOpenProducts.setOnClickListener(v -> openProducts());
     }
 
     private void setupProfileButton() {
@@ -103,7 +103,15 @@ public class HomeActivity extends AppCompatActivity {
         bottomNav.setSelectedItemId(R.id.nav_home);
         bottomNav.setOnItemSelectedListener(item -> {
             if (item.getItemId() == R.id.nav_products) {
-                openProducts(-1);
+                openProducts();
+                return true;
+            }
+            if (item.getItemId() == R.id.nav_cart) {
+                startActivity(new Intent(this, CartActivity.class));
+                return true;
+            }
+            if (item.getItemId() == R.id.nav_orders) {
+                startActivity(new Intent(this, OrdersActivity.class));
                 return true;
             }
             return item.getItemId() == R.id.nav_home;
@@ -206,16 +214,8 @@ public class HomeActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private void openProducts(int position) {
-        Intent intent = new Intent(this, DetailActivity.class);
-
-        if (position >= 0 && position < products.size()) {
-            // Một Intent có thể mang nhiều cặp key-value.
-            intent.putExtra(AppConstants.EXTRA_SELECTED_POSITION, position);
-            intent.putExtra(AppConstants.EXTRA_SELECTED_PRODUCT, products.get(position));
-        }
-
-        startActivity(intent);
+    private void openProducts() {
+        startActivity(new Intent(this, DetailActivity.class));
     }
 }
 

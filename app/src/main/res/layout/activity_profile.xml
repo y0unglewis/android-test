@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Profile Fresh Market: chỉ đọc username SharedPreferences, không thêm lưu thông tin. -->
+<!-- Profile Fresh Market: hiển thị username và liên kết đến lịch sử đơn demo. -->
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/page_background"
@@ -160,6 +161,16 @@
                 android:textColor="@color/text_primary"
                 android:textColorHint="@color/text_secondary" />
         </LinearLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnProfileOrders"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="20dp"
+            android:text="Xem đơn hàng của tôi"
+            android:textAllCaps="false"
+            android:textStyle="bold"
+            app:cornerRadius="16dp" />
 
         <TextView
             android:layout_width="match_parent"

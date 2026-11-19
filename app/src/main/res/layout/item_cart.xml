@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Một sản phẩm trong giỏ, có nút tăng/giảm/xóa trực tiếp. -->
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="10dp"
+    app:cardBackgroundColor="@color/surface_white"
+    app:cardCornerRadius="18dp"
+    app:cardElevation="1dp"
+    app:strokeColor="@color/line_soft"
+    app:strokeWidth="1dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="12dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/imgCartProduct"
+            android:layout_width="74dp"
+            android:layout_height="86dp"
+            android:background="@drawable/bg_fruit_icon"
+            android:padding="7dp"
+            android:src="@drawable/fruit_apple"
+            android:scaleType="fitCenter"
+            android:contentDescription="@string/product_image_description" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="13dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvCartProductName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Tên trái cây"
+                android:textStyle="bold"
+                android:textSize="15sp"
+                android:maxLines="2"
+                android:ellipsize="end"
+                android:textColor="@color/text_primary" />
+
+            <TextView
+                android:id="@+id/tvCartUnitPrice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="0 đ/kg"
+                android:textSize="12sp"
+                android:textColor="@color/text_secondary" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnCartDecrease"
+                    style="@style/Widget.Material3.Button.OutlinedButton"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:minWidth="44dp"
+                    android:minHeight="44dp"
+                    android:text="−"
+                    android:textSize="17sp"
+                    android:textColor="@color/brand_dark"
+                    android:contentDescription="Giảm số lượng"
+                    app:cornerRadius="12dp"
+                    app:strokeColor="@color/line_soft" />
+
+                <TextView
+                    android:id="@+id/tvCartQuantity"
+                    android:layout_width="34dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="1"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/text_primary" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnCartIncrease"
+                    style="@style/Widget.Material3.Button.OutlinedButton"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:minWidth="44dp"
+                    android:minHeight="44dp"
+                    android:text="+"
+                    android:textSize="17sp"
+                    android:textColor="@color/brand_dark"
+                    android:contentDescription="Tăng số lượng"
+                    app:cornerRadius="12dp"
+                    app:strokeColor="@color/line_soft" />
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="1" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnCartRemove"
+                    style="@style/Widget.Material3.Button.TextButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="44dp"
+                    android:minHeight="44dp"
+                    android:text="Xóa"
+                    android:textAllCaps="false"
+                    android:textColor="@color/price_color" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tvCartLineTotal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:gravity="end"
+                android:text="0 đ"
+                android:textColor="@color/brand_primary"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>

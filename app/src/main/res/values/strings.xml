@@ -6,4 +6,6 @@
     <string name="action_profile">Hồ sơ cá nhân</string>
     <string name="nav_home">Trang chủ</string>
     <string name="nav_products">Sản phẩm</string>
+    <string name="nav_cart">Giỏ hàng</string>
+    <string name="nav_orders">Đơn hàng</string>
 </resources>

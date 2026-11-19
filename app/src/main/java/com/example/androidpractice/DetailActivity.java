@@ -6,8 +6,8 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.widget.GridView;
 import android.widget.ImageButton;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,7 +42,7 @@ public class DetailActivity extends AppCompatActivity {
 
     private final ArrayList<Product> allProducts = new ArrayList<>();
     private final ArrayList<Product> visibleProducts = new ArrayList<>();
-    private ProductAdapter productAdapter;
+    private GridProductAdapter productAdapter;
 
     private String searchQuery = "";
     private String selectedOrigin = null;
@@ -66,10 +66,11 @@ public class DetailActivity extends AppCompatActivity {
     }
 
     private void setupProductList() {
-        ListView listView = findViewById(R.id.listViewProducts);
-        productAdapter = new ProductAdapter(this, visibleProducts);
-        listView.setAdapter(productAdapter);
-        listView.setOnItemClickListener((parent, view, position, id) ->
+        // GridView hiển thị hai card trên mỗi hàng; Home vẫn dùng ListView cũ.
+        GridView productGrid = findViewById(R.id.gridViewProducts);
+        productAdapter = new GridProductAdapter(this, visibleProducts);
+        productGrid.setAdapter(productAdapter);
+        productGrid.setOnItemClickListener((parent, view, position, id) ->
                 openProductDetails(visibleProducts.get(position)));
 
         // Nút thử lại chỉ có tác dụng nếu Firestore tải lỗi.
@@ -124,8 +125,23 @@ public class DetailActivity extends AppCompatActivity {
                 finish();
                 return true;
             }
+            if (item.getItemId() == R.id.nav_cart) {
+                startActivity(new Intent(this, CartActivity.class));
+                return true;
+            }
+            if (item.getItemId() == R.id.nav_orders) {
+                startActivity(new Intent(this, OrdersActivity.class));
+                return true;
+            }
             return item.getItemId() == R.id.nav_products;
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        BottomNavigationView bottomNav = findViewById(R.id.bottomNav);
+        if (bottomNav != null) bottomNav.setSelectedItemId(R.id.nav_products);
     }
 
     private void loadProductsFromFirestore() {
@@ -311,8 +327,8 @@ public class DetailActivity extends AppCompatActivity {
         }
         if (position >= 0 && position < visibleProducts.size()) {
             int selectedPosition = position;
-            ListView listView = findViewById(R.id.listViewProducts);
-            listView.post(() -> listView.setSelection(selectedPosition));
+            GridView productGrid = findViewById(R.id.gridViewProducts);
+            productGrid.post(() -> productGrid.setSelection(selectedPosition));
         }
     }
 

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Card cuộn ngang: chỉ đề xuất sản phẩm thực có trong Firestore. -->
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="172dp"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="11dp"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?attr/selectableItemBackground"
+    app:cardBackgroundColor="@color/surface_white"
+    app:cardCornerRadius="18dp"
+    app:strokeColor="@color/line_soft"
+    app:strokeWidth="1dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="136dp"
+            android:background="@drawable/bg_product_showcase">
+            <ImageView
+                android:id="@+id/imgRelatedProduct"
+                android:layout_width="112dp"
+                android:layout_height="112dp"
+                android:layout_gravity="center"
+                android:padding="9dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/fruit_apple"
+                android:contentDescription="@string/product_image_description" />
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="12dp">
+            <TextView
+                android:id="@+id/tvRelatedName"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:maxLines="2"
+                android:ellipsize="end"
+                android:text="Tên trái cây"
+                android:textColor="@color/text_primary"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+            <TextView
+                android:id="@+id/tvRelatedOrigin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:text="Xuất xứ"
+                android:textColor="@color/text_secondary"
+                android:textSize="11sp" />
+            <TextView
+                android:id="@+id/tvRelatedPrice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="9dp"
+                android:text="0 đ/kg"
+                android:textColor="@color/price_color"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="7dp"
+                android:text="Xem sản phẩm  ›"
+                android:textColor="@color/brand_primary"
+                android:textSize="11sp" />
+        </LinearLayout>
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>

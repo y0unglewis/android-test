@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Tóm tắt một đơn hàng demo trong lịch sử. -->
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="11dp"
+    app:cardBackgroundColor="@color/surface_white"
+    app:cardCornerRadius="18dp"
+    app:strokeColor="@color/line_soft"
+    app:strokeWidth="1dp">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="17dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+            <TextView
+                android:id="@+id/tvOrderId"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="FM-0000"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:textColor="@color/text_primary" />
+            <TextView
+                android:id="@+id/tvOrderStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:background="@drawable/bg_brand_chip"
+                android:paddingHorizontal="9dp"
+                android:paddingVertical="5dp"
+                android:text="Chờ xác nhận"
+                android:textSize="11sp"
+                android:textStyle="bold"
+                android:textColor="@color/brand_primary" />
+        </LinearLayout>
+        <TextView
+            android:id="@+id/tvOrderDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:text="Ngày tạo"
+            android:textSize="12sp"
+            android:textColor="@color/text_secondary" />
+        <TextView
+            android:id="@+id/tvOrderSummary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="2 sản phẩm"
+            android:textColor="@color/text_primary"
+            android:textSize="14sp"
+            android:maxLines="2"
+            android:ellipsize="end" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/tvOrderTotal"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="0 đ"
+                android:textSize="19sp"
+                android:textStyle="bold"
+                android:textColor="@color/brand_primary" />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnOpenOrder"
+                style="@style/Widget.Material3.Button.OutlinedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="44dp"
+                android:text="Xem đơn"
+                android:textAllCaps="false"
+                android:textColor="@color/brand_dark"
+                app:cornerRadius="13dp"
+                app:strokeColor="@color/line_soft" />
+        </LinearLayout>
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>

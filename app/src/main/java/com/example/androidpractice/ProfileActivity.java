@@ -1,5 +1,6 @@
 package com.example.androidpractice;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.ImageButton;
@@ -14,7 +15,13 @@ public class ProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
 
         setupBackButton();
+        setupOrdersButton();
         showProfileUsername();
+    }
+
+    private void setupOrdersButton() {
+        findViewById(R.id.btnProfileOrders).setOnClickListener(v ->
+                startActivity(new Intent(this, OrdersActivity.class)));
     }
 
     private void setupBackButton() {

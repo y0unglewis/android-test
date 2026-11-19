@@ -75,7 +75,7 @@
             app:cornerRadius="16dp" />
     </LinearLayout>
 
-    <!-- Hero: không có tính năng mới, CTA vẫn gọi openProducts(-1). -->
+    <!-- CTA của Home vẫn gọi openProducts(-1). -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -202,7 +202,7 @@
         android:textColor="@color/text_secondary"
         android:textSize="13sp" />
 
-    <!-- Home và Detail dùng chung ProductAdapter, mỗi item có ảnh, tên, giá. -->
+    <!-- Home giữ ListView / ProductAdapter; Catalog dùng GridView riêng. -->
     <ListView
         android:id="@+id/listView"
         android:layout_width="match_parent"
@@ -216,7 +216,7 @@
         android:divider="@android:color/transparent"
         android:dividerHeight="0dp" />
 
-    <!-- Giữ nguyên hai tab và listener trong HomeActivity. -->
+    <!-- Bottom nav: Trang chủ, Sản phẩm, Giỏ hàng và Đơn hàng demo. -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNav"
         android:layout_width="match_parent"

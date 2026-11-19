@@ -6,6 +6,8 @@ public final class AppConstants {
     // Intent: dữ liệu gửi từ Home sang Detail.
     public static final String EXTRA_SELECTED_PRODUCT = "selected_product";
     public static final String EXTRA_SELECTED_POSITION = "selected_position";
+    public static final String EXTRA_SELECTED_ORDER = "selected_order";
+    public static final String EXTRA_BUY_NOW_PRODUCT = "local_demo_buy_now_product";
 
     // SharedPreferences: phiên đăng nhập.
     public static final String PREF_USER_SESSION = "user_session";

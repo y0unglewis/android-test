@@ -12,4 +12,14 @@
         android:id="@+id/nav_products"
         android:icon="@drawable/ic_nav_products"
         android:title="@string/nav_products" />
+
+    <item
+        android:id="@+id/nav_cart"
+        android:icon="@drawable/ic_nav_cart"
+        android:title="@string/nav_cart" />
+
+    <item
+        android:id="@+id/nav_orders"
+        android:icon="@drawable/ic_nav_orders"
+        android:title="@string/nav_orders" />
 </menu>

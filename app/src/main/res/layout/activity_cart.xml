@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/page_background"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="20dp"
+        android:paddingTop="14dp"
+        android:paddingBottom="12dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/btnBackCart"
+            android:layout_width="46dp"
+            android:layout_height="46dp"
+            android:padding="12dp"
+            android:src="@drawable/ic_arrow_back"
+            android:background="@drawable/bg_top_button"
+            android:tint="@color/brand_dark"
+            android:contentDescription="@string/action_back" />
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="12dp"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Giỏ hàng của bạn"
+                android:textColor="@color/text_primary"
+                android:textSize="23sp"
+                android:textStyle="bold" />
+            <TextView
+                android:id="@+id/tvCartCount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:text="0 sản phẩm"
+                android:textSize="12sp"
+                android:textColor="@color/text_secondary" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="false"
+            android:scrollbars="none">
+            <LinearLayout
+                android:id="@+id/cartItemsContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="18dp"
+                android:paddingBottom="18dp"
+                android:orientation="vertical" />
+        </ScrollView>
+
+        <LinearLayout
+            android:id="@+id/cartEmptyState"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="30dp"
+            android:visibility="gone">
+            <ImageView
+                android:layout_width="86dp"
+                android:layout_height="86dp"
+                android:background="@drawable/bg_fruit_icon"
+                android:padding="16dp"
+                android:src="@drawable/fruit_apple"
+                android:contentDescription="@string/product_image_description" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:text="Giỏ hàng đang trống"
+                android:textSize="19sp"
+                android:textStyle="bold"
+                android:textColor="@color/text_primary" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="7dp"
+                android:gravity="center"
+                android:text="Chọn trái cây yêu thích rồi quay lại nhé."
+                android:textColor="@color/text_secondary"
+                android:textSize="13sp" />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnShopFromCart"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:layout_marginTop="17dp"
+                android:text="Khám phá sản phẩm"
+                android:textAllCaps="false"
+                app:cornerRadius="15dp" />
+        </LinearLayout>
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/surface_white"
+        android:orientation="vertical"
+        android:paddingHorizontal="20dp"
+        android:paddingTop="14dp"
+        android:paddingBottom="15dp"
+        android:elevation="8dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Tạm tính"
+                android:textColor="@color/text_secondary"
+                android:textSize="14sp" />
+            <TextView
+                android:id="@+id/tvCartTotal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0 đ"
+                android:textSize="23sp"
+                android:textStyle="bold"
+                android:textColor="@color/brand_primary" />
+        </LinearLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="Đơn hàng chỉ mô phỏng trên thiết bị, không thu tiền thật."
+            android:textSize="11sp"
+            android:textColor="@color/text_secondary" />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnCheckout"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginTop="12dp"
+            android:text="Tiếp tục đặt hàng"
+            android:textAllCaps="false"
+            android:textStyle="bold"
+            android:textSize="15sp"
+            app:cornerRadius="16dp" />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnOrdersFromCart"
+            style="@style/Widget.Material3.Button.TextButton"
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            android:text="Xem đơn hàng của tôi"
+            android:textAllCaps="false"
+            android:textColor="@color/brand_primary" />
+    </LinearLayout>
+</LinearLayout>
