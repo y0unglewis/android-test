@@ -5,6 +5,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
@@ -174,14 +175,16 @@ public class CheckoutActivity extends AppCompatActivity {
     }
 
     private void setupEditableItem(View row, OrderRepository.CartLine line) {
-        MaterialButton minus = row.findViewById(R.id.btnCheckoutDecrease);
-        MaterialButton plus = row.findViewById(R.id.btnCheckoutIncrease);
+        ImageButton minus = row.findViewById(R.id.btnCheckoutDecrease);
+        ImageButton plus = row.findViewById(R.id.btnCheckoutIncrease);
         View remove = row.findViewById(R.id.btnCheckoutRemove);
         minus.setVisibility(View.VISIBLE);
         plus.setVisibility(View.VISIBLE);
         remove.setVisibility(editingOrder != null ? View.VISIBLE : View.GONE);
         minus.setEnabled(line.quantity > 1);
         plus.setEnabled(line.quantity < 99);
+        minus.setAlpha(line.quantity > 1 ? 1f : 0.35f);
+        plus.setAlpha(line.quantity < 99 ? 1f : 0.35f);
         minus.setOnClickListener(v -> {
             line.quantity--;
             renderItems();

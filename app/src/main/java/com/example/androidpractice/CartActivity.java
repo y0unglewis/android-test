@@ -11,7 +11,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.material.button.MaterialButton;
+import android.widget.ImageButton;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.ArrayList;
@@ -81,10 +81,12 @@ public class CartActivity extends AppCompatActivity {
         ((TextView) row.findViewById(R.id.tvCartLineTotal))
                 .setText(OrderRepository.formatPrice(line.total()));
 
-        MaterialButton minus = row.findViewById(R.id.btnCartDecrease);
-        MaterialButton plus = row.findViewById(R.id.btnCartIncrease);
+        ImageButton minus = row.findViewById(R.id.btnCartDecrease);
+        ImageButton plus = row.findViewById(R.id.btnCartIncrease);
         minus.setEnabled(line.quantity > 1);
         plus.setEnabled(line.quantity < 99);
+        minus.setAlpha(line.quantity > 1 ? 1f : 0.35f);
+        plus.setAlpha(line.quantity < 99 ? 1f : 0.35f);
         minus.setOnClickListener(v -> changeQuantity(product, line.quantity - 1));
         plus.setOnClickListener(v -> changeQuantity(product, line.quantity + 1));
         row.findViewById(R.id.btnCartRemove).setOnClickListener(v ->
