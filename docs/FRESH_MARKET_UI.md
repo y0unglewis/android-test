@@ -33,3 +33,22 @@ Làm lại **giao diện** cho project thực hành trái cây theo phong cách 
 - [ ] Firestore không bị ghi đè; code SQLite và `uploadFruitsOnce()` vẫn là comment
 
 **Lưu ý:** Kiểm tra cấu trúc XML và tham chiếu ID/resource không thay thế cho việc chạy build Android và kiểm thử trên thiết bị. Giữ PR ở trạng thái Draft đến khi chạy thử.
+
+## Bổ sung UX/Material 3 ngày 19/11/2026
+- Home banner được rút gọn câu chữ và kích cỡ ảnh minh họa để ưu tiên hiển thị đủ CTA ở màn 360dp.
+- Home hiển thị rõ ba trạng thái danh sách: **đang tải**, **chưa có dữ liệu**, **lỗi kết nối**; đây chỉ là trình bày trạng thái của yêu cầu Firestore đang có, không phát sinh API hay tính năng mới.
+- `ProductAdapter` giữ nguyên code, nhưng `item_product.xml` dùng `MaterialCardView`, có kích cỡ ảnh nhỏ gọn và cho phép tên dài hiển thị hai dòng.
+- Form Login/Register dùng `TextInputLayout` + `TextInputEditText` từ thư viện Material có sẵn; các ID EditText không thay đổi và vẫn dùng `DemoAuth`, `setError` như cũ.
+- BottomNavigation có active indicator theo tông màu thương hiệu; tăng độ tương phản cho chữ phụ và giá.
+- `HomeActivity.onCreate()` vẫn chỉ gọi các hàm con; phần trạng thái được xử lý trong `showFruitStatus()` riêng, không thay đổi đường truyền `Intent.putExtra(AppConstants.EXTRA_...)`.
+
+### Checklist giao diện trước khi merge
+- [ ] Android Studio build `assembleDebug` thành công; chạy app trên emulator/điện thoại.
+- [ ] 360dp, 390dp, màn ngang: nút Profile/Logout, banner, giá card và bottom nav không bị đè/cắt.
+- [ ] Font scale 1.15–1.3: tên dài, nhãn ô nhập, giá, nút Đăng nhập/Đăng ký vẫn đọc và chạm được.
+- [ ] Form nhập liệu focus và lỗi `EditText.setError()` trên `TextInputEditText` vẫn dễ đọc; bàn phím không che nút.
+- [ ] Home có trạng thái tải và không có dữ liệu; nếu Firestore lỗi, thông báo hiện rõ.
+- [ ] Click trái cây trên Home sang Catalog đúng đối tượng và đúng vị trí; Back/Logout/Profile vẫn hoạt động.
+- [ ] Kiểm tra xem bản cũ ở `docs/legacy-ui/2026-11-19/` và SQLite đã comment có thể giải thích cho giảng viên.
+
+**Phạm vi kiểm tra của trợ lý:** Đã đối chiếu tĩnh XML,  ID, các đường dẫn resource và source Java; **không xác nhận giao diện đã hiển thị đẹp trên thiết bị nếu chưa có build/screenshot thực tế**.
