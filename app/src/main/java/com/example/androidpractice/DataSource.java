@@ -5,7 +5,6 @@ import java.util.ArrayList;
 public class DataSource {
     public static ArrayList<Product> getProducts() {
         ArrayList<Product> products = new ArrayList<>();
-        // Mỗi new Product(...) tạo một sản phẩm rồi add() vào danh sách.
         products.add(new Product(
                 "Apple",
                 "New Zealand",

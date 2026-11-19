@@ -96,7 +96,6 @@ public class DetailActivity extends AppCompatActivity {
         updateFilterLabels();
     }
 
-    // ===== BÀI CŨ: SQLITE TRONG DETAIL (GIỮ LẠI ĐỂ CÔ KIỂM TRA) =====
 //        // Lấy danh sách trái cây thật từ bảng fruits trong SQLite.
 //        FruitDatabaseHelper dbHelper = new FruitDatabaseHelper(this);
 //        ArrayList<Product> products = dbHelper.getAllProducts();

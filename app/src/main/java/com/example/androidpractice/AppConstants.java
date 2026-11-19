@@ -1,6 +1,5 @@
 package com.example.androidpractice;
 
-// Tập trung các tên key dùng để truyền dữ liệu và lưu phiên đăng nhập.
 public final class AppConstants {
     private AppConstants() { }
 

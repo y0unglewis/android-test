@@ -32,7 +32,7 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-//        uploadFruitsOnce(); // Bài Firebase: để comment, không upload tự động.
+//        uploadFruitsOnce();
 
         showWelcomeMessage();
         setupFruitList();
@@ -54,7 +54,6 @@ public class HomeActivity extends AppCompatActivity {
     private void setupFruitList() {
         // Tìm ListView trên giao diện Home.
         ListView listView = findViewById(R.id.listView);
-        // Bài UI mới: tận dụng ProductAdapter có sẵn của bài ListView/Adapter.
         fruitAdapter = new ProductAdapter(this, products);
         listView.setAdapter(fruitAdapter);
         listView.setOnItemClickListener((parent, view, position, id) ->
@@ -63,7 +62,7 @@ public class HomeActivity extends AppCompatActivity {
         loadFruitsFromFirestore();
     }
 
-    // ===== BÀI CŨ: SQLITE TRONG HOME (GIỮ LẠI ĐỂ CÔ KIỂM TRA) =====
+    // ===== BÀI CŨ: SQLITE TRONG HOME =====
 //        FruitDatabaseHelper dbHelper = new FruitDatabaseHelper(this);
 //        String[] items = dbHelper.getAllNames();
 //        dbHelper.close();
@@ -185,7 +184,6 @@ public class HomeActivity extends AppCompatActivity {
             Product product = FirestoreProductMapper.fromDocument(this, document);
             products.add(product);
         }
-        // Thông báo danh sách Product thay đổi để Adapter cập nhật ListView.
         fruitAdapter.notifyDataSetChanged();
 
         if (products.isEmpty()) {

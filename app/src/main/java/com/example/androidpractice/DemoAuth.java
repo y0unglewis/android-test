@@ -16,9 +16,7 @@ public final class DemoAuth {
 
     private DemoAuth() { }
 
-    // Kiểm tra tài khoản nhập: hỗ trợ demo/123456 và một tài khoản người dùng đăng ký.
     public static boolean signIn(Context context, String username, String password) {
-        // Tài khoản mẫu cố định để thử app, không phải phương án đăng nhập thực tế.
         if ("demo".equals(username) && "123456".equals(password)) {
             return true;
         }
@@ -44,7 +42,7 @@ public final class DemoAuth {
     // Đăng ký một tài khoản trên máy; đăng ký lần nữa sẽ ghi đè tài khoản trước.
     public static boolean register(Context context, String username, String password) {
         if ("demo".equalsIgnoreCase(username)) {
-            return false; // Giữ riêng tên này cho tài khoản kiểm thử.
+            return false;
         }
         // Salt ngẫu nhiên giúp hai mật khẩu giống nhau không luôn cho mã băm giống nhau.
         byte[] salt = new byte[16];

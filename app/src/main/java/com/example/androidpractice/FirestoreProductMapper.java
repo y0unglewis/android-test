@@ -4,7 +4,6 @@ import android.content.Context;
 
 import com.google.firebase.firestore.DocumentSnapshot;
 
-// Chuyển một document Firestore thành Product để Home và Detail dùng chung.
 public final class FirestoreProductMapper {
     private FirestoreProductMapper() { }
 

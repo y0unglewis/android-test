@@ -7,10 +7,6 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-/**
- * Trang hồ sơ demo: chỉ đọc tên tài khoản đăng nhập từ SharedPreferences.
- * Không hiển thị hoặc lưu mật khẩu của người dùng trong giao diện này.
- */
 public class ProfileActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,7 +18,6 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     private void setupBackButton() {
-        // Đóng Profile và quay lại Home đang nằm dưới trong back stack.
         ImageButton btnBackProfile = findViewById(R.id.btnBackProfile);
         btnBackProfile.setOnClickListener(v -> finish());
     }
