@@ -1,73 +1,121 @@
 <?xml version="1.0" encoding="utf-8"?>
-
+<!-- Login Fresh Market: các EditText/Button ID giữ nguyên DemoAuth & SharedPreferences. -->
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true"
+    android:background="@color/page_background"
     android:fitsSystemWindows="true"
-    android:background="@color/page_background">
+    android:fillViewport="true"
+    android:clipToPadding="false">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center_vertical"
-        android:padding="24dp"
-        android:minHeight="600dp">
+        android:paddingHorizontal="24dp"
+        android:paddingTop="32dp"
+        android:paddingBottom="32dp"
+        android:orientation="vertical">
 
-        <ImageView
-            android:layout_width="78dp"
-            android:layout_height="78dp"
-            android:layout_gravity="center_horizontal"
-            android:padding="12dp"
-            android:background="@drawable/bg_fruit_icon"
-            android:src="@drawable/fruit_apple"
-            android:scaleType="fitCenter"
-            android:contentDescription="@string/app_name" />
+        <!-- Brand: chỉ là thành phần hiển thị, không thêm tính năng. -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:layout_width="58dp"
+                android:layout_height="58dp"
+                android:background="@drawable/bg_fruit_icon"
+                android:src="@drawable/fruit_apple"
+                android:padding="10dp"
+                android:contentDescription="@string/app_name" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="13dp"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="FRESH MARKET"
+                    android:textColor="@color/brand_dark"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:letterSpacing="0.06" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:text="Một chút xanh, một chút tươi"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="11sp" />
+            </LinearLayout>
+        </LinearLayout>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="18dp"
-            android:gravity="center"
-            android:text="Chào mừng trở lại"
+            android:layout_marginTop="36dp"
+            android:text="Chào mừng\ntrở lại!"
+            android:lineSpacingExtra="3dp"
             android:textColor="@color/text_primary"
-            android:textSize="28sp"
+            android:textSize="32sp"
             android:textStyle="bold" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
-            android:layout_marginBottom="24dp"
-            android:gravity="center"
-            android:text="Đăng nhập để khám phá các loại trái cây"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="25dp"
+            android:text="Đăng nhập để tiếp tục khám phá thế giới trái cây tươi."
             android:textColor="@color/text_secondary"
             android:textSize="14sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="20dp"
             android:background="@drawable/bg_auth_card"
-            android:elevation="2dp">
+            android:padding="22dp"
+            android:orientation="vertical"
+            android:elevation="3dp">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Tên đăng nhập"
-                android:textStyle="bold"
-                android:textSize="14sp"
+                android:text="Đăng nhập"
                 android:textColor="@color/text_primary"
-                android:layout_marginBottom="8dp" />
-            <!-- Java đọc giá trị username từ EditText bằng getText(). -->
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="22dp"
+                android:text="Điền thông tin tài khoản của bạn"
+                android:textColor="@color/text_secondary"
+                android:textSize="12sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="Tên đăng nhập"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                android:textColor="@color/text_primary" />
+
+            <!-- LoginActivity đọc tên bằng getText(). -->
             <EditText
                 android:id="@+id/edtUsername"
                 android:layout_width="match_parent"
-                android:layout_height="52dp"
+                android:layout_height="54dp"
                 android:background="@drawable/bg_input"
-                android:paddingHorizontal="14dp"
+                android:paddingHorizontal="16dp"
                 android:singleLine="true"
                 android:hint="Nhập tên đăng nhập"
                 android:inputType="text"
@@ -78,19 +126,20 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="18dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginBottom="8dp"
                 android:text="Mật khẩu"
+                android:textSize="13sp"
                 android:textStyle="bold"
-                android:textSize="14sp"
                 android:textColor="@color/text_primary" />
-            <!-- textPassword thiết lập ô nhập mật khẩu, không tự lưu mật khẩu. -->
+
+            <!-- textPassword che ký tự; không tự lưu mật khẩu. -->
             <EditText
                 android:id="@+id/edtPassword"
                 android:layout_width="match_parent"
-                android:layout_height="52dp"
+                android:layout_height="54dp"
                 android:background="@drawable/bg_input"
-                android:paddingHorizontal="14dp"
+                android:paddingHorizontal="16dp"
                 android:singleLine="true"
                 android:hint="Nhập mật khẩu"
                 android:inputType="textPassword"
@@ -98,52 +147,58 @@
                 android:textColorHint="@color/text_secondary"
                 android:autofillHints="password" />
 
-            <!-- LoginActivity đăng ký setOnClickListener() để xử lý đăng nhập. -->
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnLogin"
                 android:layout_width="match_parent"
-                android:layout_height="52dp"
-                android:layout_marginTop="24dp"
+                android:layout_height="54dp"
+                android:layout_marginTop="26dp"
                 android:text="Đăng nhập"
+                android:textSize="15sp"
+                android:textStyle="bold"
                 android:textAllCaps="false"
-                android:textSize="16sp"
-                android:backgroundTint="@color/brand_primary"
-                android:textColor="@color/white" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="14dp"
-                android:gravity="center"
-                android:text="Tài khoản thử: demo / 123456"
-                android:textColor="@color/text_secondary"
-                android:textSize="12sp" />
+                android:textColor="@color/white"
+                app:backgroundTint="@color/brand_primary"
+                app:cornerRadius="16dp" />
         </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:gravity="center"
+            android:background="@drawable/bg_brand_chip"
+            android:padding="12dp"
+            android:text="Tài khoản thực hành: demo / 123456"
+            android:textSize="12sp"
+            android:textColor="@color/brand_dark" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
+            android:layout_marginTop="18dp"
             android:gravity="center"
-            android:layout_marginTop="26dp">
+            android:orientation="horizontal">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Chưa có tài khoản?  "
-                android:textSize="14sp"
-                android:textColor="@color/text_secondary" />
-            <!-- Nhấn TextView này sẽ mở RegisterActivity bằng Intent. -->
+                android:text="Chưa có tài khoản?"
+                android:textColor="@color/text_secondary"
+                android:textSize="14sp" />
+
+            <!-- Giữ đường Intent sang RegisterActivity. -->
             <TextView
                 android:id="@+id/tvGoRegister"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="7dp"
+                android:padding="8dp"
                 android:text="Đăng ký"
-                android:textSize="14sp"
                 android:textStyle="bold"
+                android:textSize="14sp"
                 android:textColor="@color/brand_primary"
                 android:clickable="true"
-                android:focusable="true"
-                android:padding="8dp" />
+                android:focusable="true" />
         </LinearLayout>
     </LinearLayout>
 </ScrollView>
