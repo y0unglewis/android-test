@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-
+<!-- Fresh Market Catalog: tìm kiếm/lọc trên dữ liệu Firestore đã tải; ID cũ giữ nguyên. -->
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -7,26 +7,30 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/page_background"
-    android:fitsSystemWindows="true">
+    android:fitsSystemWindows="true"
+    android:background="@color/page_background">
 
+    <!-- Thanh tiêu đề gọn, không làm mất diện tích danh sách. -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:paddingHorizontal="18dp"
-        android:paddingTop="18dp"
-        android:paddingBottom="10dp">
-        <!-- Nút này gọi finish() để quay về màn hình trước. -->
+        android:orientation="horizontal"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:paddingTop="16dp"
+        android:paddingBottom="8dp">
+
         <ImageButton
             android:id="@+id/btnBackHome"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:background="@drawable/bg_top_button"
+            android:layout_width="46dp"
+            android:layout_height="46dp"
             android:src="@drawable/ic_arrow_back"
-            android:scaleType="centerInside"
+            android:padding="12dp"
+            android:background="@drawable/bg_top_button"
+            android:tint="@color/brand_dark"
             android:contentDescription="@string/action_back" />
+
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -36,67 +40,223 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Chi tiết sản phẩm"
+                android:text="Khám phá trái cây"
                 android:textStyle="bold"
-                android:textSize="23sp"
-                android:textColor="@color/text_primary" />
+                android:textColor="@color/text_primary"
+                android:textSize="23sp" />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:text="Thông tin các loại trái cây trong danh sách"
-                android:textSize="12sp"
-                android:textColor="@color/text_secondary" />
+                android:layout_marginTop="2dp"
+                android:text="Tìm loại quả hợp với bạn"
+                android:textColor="@color/text_secondary"
+                android:textSize="12sp" />
         </LinearLayout>
+
+        <ImageView
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:padding="8dp"
+            android:background="@drawable/bg_fruit_icon"
+            android:src="@drawable/fruit_pear"
+            android:contentDescription="@string/product_image_description" />
     </LinearLayout>
+
+    <!-- Search Material: nhập tên trái cây, xuất xứ, hoặc mô tả. -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="10dp"
+        android:hint="Tìm trái cây, xuất xứ..."
+        app:boxBackgroundMode="outline"
+        app:boxBackgroundColor="@color/surface_white"
+        app:boxStrokeColor="@color/brand_primary"
+        app:boxCornerRadiusTopStart="18dp"
+        app:boxCornerRadiusTopEnd="18dp"
+        app:boxCornerRadiusBottomStart="18dp"
+        app:boxCornerRadiusBottomEnd="18dp"
+        app:startIconDrawable="@drawable/ic_search"
+        app:startIconTint="@color/brand_primary">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etSearchProducts"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:inputType="text"
+            android:imeOptions="actionSearch"
+            android:textSize="14sp"
+            android:textColor="@color/text_primary" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Các bộ lọc cuộn ngang để không bị tràn trên màn 360dp. -->
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:scrollbars="none"
+        android:fillViewport="false">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnFilterOrigin"
+                style="@style/Widget.Material3.Button.OutlinedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="44dp"
+                android:minHeight="44dp"
+                android:text="Xuất xứ  ⌄"
+                android:textAllCaps="false"
+                android:textSize="12sp"
+                android:textColor="@color/brand_dark"
+                app:strokeColor="@color/line_soft"
+                app:cornerRadius="18dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnFilterPrice"
+                style="@style/Widget.Material3.Button.OutlinedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="44dp"
+                android:minHeight="44dp"
+                android:layout_marginStart="8dp"
+                android:text="Mức giá  ⌄"
+                android:textAllCaps="false"
+                android:textSize="12sp"
+                android:textColor="@color/brand_dark"
+                app:strokeColor="@color/line_soft"
+                app:cornerRadius="18dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnSortProducts"
+                style="@style/Widget.Material3.Button.OutlinedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="44dp"
+                android:minHeight="44dp"
+                android:layout_marginStart="8dp"
+                android:text="Sắp xếp  ⌄"
+                android:textAllCaps="false"
+                android:textSize="12sp"
+                android:textColor="@color/brand_dark"
+                app:strokeColor="@color/line_soft"
+                app:cornerRadius="18dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnClearFilters"
+                style="@style/Widget.Material3.Button.TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="44dp"
+                android:minHeight="44dp"
+                android:layout_marginStart="4dp"
+                android:text="Xóa lọc"
+                android:textAllCaps="false"
+                android:textSize="12sp"
+                android:textColor="@color/price_color"
+                android:visibility="gone" />
+        </LinearLayout>
+    </HorizontalScrollView>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginVertical="10dp"
-        android:orientation="horizontal"
-        android:gravity="center_vertical">
+        android:layout_marginStart="23dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="17dp"
+        android:layout_marginBottom="8dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Trái cây tươi"
-            android:textColor="@color/brand_primary"
+            android:text="DANH SÁCH SẢN PHẨM"
+            android:letterSpacing="0.09"
+            android:textSize="11sp"
             android:textStyle="bold"
-            android:textSize="14sp" />
-        <!-- Java điền số sản phẩm dựa trên products.size(). -->
+            android:textColor="@color/brand_primary" />
         <TextView
             android:id="@+id/tvProductCount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="15 loại trái cây"
-            android:textColor="@color/text_secondary"
-            android:textSize="13sp" />
+            android:text="Đang tải..."
+            android:textSize="11sp"
+            android:textStyle="bold"
+            android:background="@drawable/bg_brand_chip"
+            android:paddingHorizontal="12dp"
+            android:paddingVertical="7dp"
+            android:textColor="@color/brand_primary" />
     </LinearLayout>
 
-    <!-- Mỗi dòng được ProductAdapter tạo từ item_product.xml. -->
-    <ListView
-        android:id="@+id/listViewProducts"
+    <!-- Empty state thay cho khoảng trống khi tìm không có kết quả. -->
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:paddingHorizontal="12dp"
-        android:paddingBottom="12dp"
-        android:clipToPadding="false"
-        android:divider="@android:color/transparent"
-        android:dividerHeight="0dp" />
+        android:layout_weight="1">
+        <ListView
+            android:id="@+id/listViewProducts"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingHorizontal="16dp"
+            android:paddingBottom="12dp"
+            android:clipToPadding="false"
+            android:scrollbars="none"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="0dp" />
 
-    <!-- Tab Sản phẩm đang chọn; chọn Home sẽ quay về HomeActivity. -->
+        <LinearLayout
+            android:id="@+id/productEmptyState"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="28dp"
+            android:visibility="gone">
+            <ImageView
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:padding="12dp"
+                android:background="@drawable/bg_fruit_icon"
+                android:src="@drawable/fruit_apple"
+                android:contentDescription="@string/product_image_description" />
+            <TextView
+                android:id="@+id/tvProductEmpty"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Không có sản phẩm phù hợp"
+                android:textAlignment="center"
+                android:textColor="@color/text_secondary"
+                android:textSize="14sp"
+                android:lineSpacingExtra="4dp" />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnRetryProducts"
+                android:layout_width="wrap_content"
+                android:layout_height="46dp"
+                android:layout_marginTop="14dp"
+                android:text="Thử tải lại"
+                android:textAllCaps="false"
+                android:visibility="gone"
+                app:cornerRadius="16dp" />
+        </LinearLayout>
+    </FrameLayout>
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNav"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:minHeight="64dp"
-        android:background="@color/surface_white"
-        android:elevation="8dp"
+        android:minHeight="66dp"
+        android:background="@drawable/bg_nav_surface"
+        android:elevation="12dp"
         app:menu="@menu/bottom_nav_menu"
         app:labelVisibilityMode="labeled"
         app:itemIconTint="@color/nav_item_tint"
         app:itemTextColor="@color/nav_item_tint" />
 </LinearLayout>
+

@@ -1,79 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
-
+<!-- Bài mới: MaterialCardView giữ nguyên năm View ID để ProductAdapter Java dùng lại.
+     Bản item_product.xml trước đây được sao lưu tại docs/legacy-ui/2026-11-19/. -->
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
     android:paddingHorizontal="4dp"
-    android:paddingVertical="6dp">
-    <LinearLayout
+    android:paddingTop="4dp"
+    android:paddingBottom="8dp"
+    android:orientation="vertical">
+
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:padding="14dp"
-        android:background="@drawable/bg_product_card"
-        android:elevation="2dp">
-
-        <!-- ImageView hiển thị drawable từ product.getImageResId() bằng setImageResource(). -->
-        <ImageView
-            android:id="@+id/imgProduct"
-            android:layout_width="86dp"
-            android:layout_height="86dp"
-            android:padding="8dp"
-            android:scaleType="fitCenter"
-            android:src="@drawable/fruit_apple"
-            android:background="@drawable/bg_fruit_icon"
-            android:contentDescription="@string/product_image_description" />
+        android:minHeight="128dp"
+        app:cardCornerRadius="22dp"
+        app:cardElevation="2dp"
+        app:strokeWidth="1dp"
+        app:strokeColor="@color/line_soft"
+        app:cardBackgroundColor="@color/surface_white">
 
         <LinearLayout
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginStart="14dp"
-            android:orientation="vertical">
+            android:padding="14dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
 
-            <!-- Adapter dùng setText() để đặt tên sản phẩm. -->
-            <TextView
-                android:id="@+id/tvProductName"
-                android:layout_width="match_parent"
+            <!-- ProductAdapter gọi setImageResource() với ảnh drawable tương ứng. -->
+            <ImageView
+                android:id="@+id/imgProduct"
+                android:layout_width="82dp"
+                android:layout_height="96dp"
+                android:padding="10dp"
+                android:scaleType="fitCenter"
+                android:background="@drawable/bg_fruit_icon"
+                android:src="@drawable/fruit_apple"
+                android:contentDescription="@string/product_image_description" />
+
+            <LinearLayout
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Tên sản phẩm"
-                android:textStyle="bold"
-                android:textSize="18sp"
-                android:textColor="@color/text_primary" />
-            <!-- Adapter ghép chữ Xuất xứ với product.getOrigin(). -->
-            <TextView
-                android:id="@+id/tvProductOrigin"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:text="Xuất xứ"
-                android:textSize="12sp"
-                android:textColor="@color/brand_primary" />
-            <!-- maxLines và ellipsize giới hạn mô tả quá dài. -->
-            <TextView
-                android:id="@+id/tvProductDescription"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="7dp"
-                android:maxLines="3"
-                android:ellipsize="end"
-                android:text="Mô tả sản phẩm"
-                android:lineSpacingExtra="2dp"
-                android:textSize="13sp"
-                android:textColor="@color/text_secondary" />
-            <!-- Adapter format giá theo Locale vi-VN rồi gán cho TextView. -->
-            <TextView
-                android:id="@+id/tvProductPrice"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="0 đ/kg"
-                android:textStyle="bold"
-                android:textSize="17sp"
-                android:textColor="@color/price_color" />
+                android:layout_weight="1"
+                android:layout_marginStart="12dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvProductName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Tên trái cây"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/text_primary"
+                    android:maxLines="2"
+                    android:ellipsize="end" />
+
+                <TextView
+                    android:id="@+id/tvProductOrigin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="Xuất xứ"
+                    android:textColor="@color/brand_primary"
+                    android:textSize="12sp"
+                    android:maxLines="1"
+                    android:ellipsize="end" />
+
+                <TextView
+                    android:id="@+id/tvProductDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="7dp"
+                    android:text="Mô tả trái cây"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="12sp"
+                    android:lineSpacingExtra="2dp"
+                    android:maxLines="2"
+                    android:ellipsize="end" />
+
+                <TextView
+                    android:id="@+id/tvProductPrice"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="0 đ/kg"
+                    android:textColor="@color/price_color"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="7dp"
+                    android:text="Xem chi tiết  ›"
+                    android:textSize="11sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/brand_primary" />
+            </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
 </LinearLayout>

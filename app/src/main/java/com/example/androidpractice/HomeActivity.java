@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -23,10 +24,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class HomeActivity extends AppCompatActivity {
-    // Hai danh sách cùng thứ tự: tên hiển thị và Product thật từ Firestore.
-    private final ArrayList<String> fruitNames = new ArrayList<>();
+    // Product lấy từ Firestore, được hiển thị bằng card có ảnh, tên và giá.
     private final ArrayList<Product> products = new ArrayList<>();
-    private ArrayAdapter<String> fruitAdapter;
+    private ProductAdapter fruitAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,12 +54,11 @@ public class HomeActivity extends AppCompatActivity {
     private void setupFruitList() {
         // Tìm ListView trên giao diện Home.
         ListView listView = findViewById(R.id.listView);
-        // Tạo Adapter để hiển thị dữ liệu lên ListView.
-        fruitAdapter = new ArrayAdapter<>(
-                this, android.R.layout.simple_list_item_1, fruitNames);
+        // Bài UI mới: tận dụng ProductAdapter có sẵn của bài ListView/Adapter.
+        fruitAdapter = new ProductAdapter(this, products);
         listView.setAdapter(fruitAdapter);
         listView.setOnItemClickListener((parent, view, position, id) ->
-                openProducts(position));
+                openProductDetails(products.get(position)));
 
         loadFruitsFromFirestore();
     }
@@ -161,32 +160,52 @@ public class HomeActivity extends AppCompatActivity {
 
 
     private void loadFruitsFromFirestore() {
+        showFruitStatus("Đang tải danh sách trái cây...", true);
         // Lấy danh sách trái cây từ Cloud Firestore.
         // Lấy dữ liệu từ collection fruits.
         FirebaseFirestore.getInstance()
                 .collection(AppConstants.COLLECTION_FRUITS)
                 .orderBy(AppConstants.FIELD_SORT_ORDER)
                 .get()
-                .addOnSuccessListener(this::showFruitNames)
-                .addOnFailureListener(e ->
-                        Toast.makeText(this,
-                                "Không thể tải dữ liệu: " + e.getMessage(),
-                                Toast.LENGTH_LONG).show());
+                .addOnSuccessListener(this::showFruitCards)
+                .addOnFailureListener(e -> {
+                    showFruitStatus("Không thể tải trái cây. Hãy kiểm tra kết nối mạng.", true);
+                    Toast.makeText(this,
+                            "Không thể tải dữ liệu: " + e.getMessage(),
+                            Toast.LENGTH_LONG).show();
+                });
     }
 
-    private void showFruitNames(QuerySnapshot querySnapshot) {
-        // Xóa dữ liệu cũ trong danh sách.
+    private void showFruitCards(QuerySnapshot querySnapshot) {
+        // Xóa dữ liệu cũ trước khi vẽ lại card.
         products.clear();
-        fruitNames.clear();
 
         // Duyệt từng document trả về.
         for (QueryDocumentSnapshot document : querySnapshot) {
             Product product = FirestoreProductMapper.fromDocument(this, document);
             products.add(product);
-            fruitNames.add(product.getName());
         }
-        // Thông báo dữ liệu đã thay đổi để ListView cập nhật.
+        // Thông báo danh sách Product thay đổi để Adapter cập nhật ListView.
         fruitAdapter.notifyDataSetChanged();
+
+        if (products.isEmpty()) {
+            showFruitStatus("Hiện chưa có trái cây nào trong danh sách.", true);
+        } else {
+            showFruitStatus("", false);
+        }
+    }
+
+    private void showFruitStatus(String message, boolean visible) {
+        TextView status = findViewById(R.id.tvFruitStatus);
+        status.setText(message);
+        status.setVisibility(visible ? View.VISIBLE : View.GONE);
+    }
+
+    // Bấm card mở đúng sản phẩm; Intent key lấy từ AppConstants của bài trước.
+    private void openProductDetails(Product product) {
+        Intent intent = new Intent(this, ProductDetailActivity.class);
+        intent.putExtra(AppConstants.EXTRA_SELECTED_PRODUCT, product);
+        startActivity(intent);
     }
 
     private void openProducts(int position) {
@@ -201,3 +220,4 @@ public class HomeActivity extends AppCompatActivity {
         startActivity(intent);
     }
 }
+

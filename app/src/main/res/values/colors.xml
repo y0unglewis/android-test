@@ -1,15 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Fresh Market: bảng màu dùng chung, không thay đổi luồng xử lý dữ liệu. -->
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="brand_primary">#286D51</color>
-    <color name="brand_dark">#1A533D</color>
-    <color name="page_background">#F7F8F4</color>
+    <color name="brand_primary">#246C4C</color>
+    <color name="brand_dark">#153E30</color>
+    <color name="brand_soft">#E9F4E9</color>
+    <color name="page_background">#F7F8F2</color>
     <color name="surface_white">#FFFFFF</color>
-    <color name="text_primary">#23352B</color>
-    <color name="text_secondary">#687A70</color>
-    <color name="line_soft">#DAE6DD</color>
-    <color name="nav_indicator">#D9ECDD</color>
-    <color name="price_color">#C05534</color>
-    <color name="icon_background">#ECF6EB</color>
+    <color name="surface_warm">#FCFDF9</color>
+    <color name="text_primary">#1E352A</color>
+    <color name="text_secondary">#526A5D</color>
+    <color name="line_soft">#E3EBE2</color>
+    <color name="nav_indicator">#E0F0E1</color>
+    <color name="price_color">#A5502A</color>
+    <color name="icon_background">#F1F6E9</color>
+    <color name="hero_start">#256E50</color>
+    <color name="hero_end">#154734</color>
+    <color name="hero_text_soft">#D5EBDD</color>
+    <color name="chip_background">#E6F1E4</color>
+    <color name="chip_text">#3E7754</color>
+    <color name="warm_accent">#F4DFBD</color>
 </resources>
