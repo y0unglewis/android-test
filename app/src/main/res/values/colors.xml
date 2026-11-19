@@ -10,10 +10,10 @@
     <color name="surface_white">#FFFFFF</color>
     <color name="surface_warm">#FCFDF9</color>
     <color name="text_primary">#1E352A</color>
-    <color name="text_secondary">#687F72</color>
+    <color name="text_secondary">#526A5D</color>
     <color name="line_soft">#E3EBE2</color>
     <color name="nav_indicator">#E0F0E1</color>
-    <color name="price_color">#C96F3D</color>
+    <color name="price_color">#A5502A</color>
     <color name="icon_background">#F1F6E9</color>
     <color name="hero_start">#256E50</color>
     <color name="hero_end">#154734</color>

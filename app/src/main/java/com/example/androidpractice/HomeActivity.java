@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -159,6 +160,7 @@ public class HomeActivity extends AppCompatActivity {
 
 
     private void loadFruitsFromFirestore() {
+        showFruitStatus("Đang tải danh sách trái cây...", true);
         // Lấy danh sách trái cây từ Cloud Firestore.
         // Lấy dữ liệu từ collection fruits.
         FirebaseFirestore.getInstance()
@@ -166,10 +168,12 @@ public class HomeActivity extends AppCompatActivity {
                 .orderBy(AppConstants.FIELD_SORT_ORDER)
                 .get()
                 .addOnSuccessListener(this::showFruitCards)
-                .addOnFailureListener(e ->
-                        Toast.makeText(this,
-                                "Không thể tải dữ liệu: " + e.getMessage(),
-                                Toast.LENGTH_LONG).show());
+                .addOnFailureListener(e -> {
+                    showFruitStatus("Không thể tải trái cây. Hãy kiểm tra kết nối mạng.", true);
+                    Toast.makeText(this,
+                            "Không thể tải dữ liệu: " + e.getMessage(),
+                            Toast.LENGTH_LONG).show();
+                });
     }
 
     private void showFruitCards(QuerySnapshot querySnapshot) {
@@ -183,6 +187,18 @@ public class HomeActivity extends AppCompatActivity {
         }
         // Thông báo danh sách Product thay đổi để Adapter cập nhật ListView.
         fruitAdapter.notifyDataSetChanged();
+
+        if (products.isEmpty()) {
+            showFruitStatus("Hiện chưa có trái cây nào trong danh sách.", true);
+        } else {
+            showFruitStatus("", false);
+        }
+    }
+
+    private void showFruitStatus(String message, boolean visible) {
+        TextView status = findViewById(R.id.tvFruitStatus);
+        status.setText(message);
+        status.setVisibility(visible ? View.VISIBLE : View.GONE);
     }
 
     private void openProducts(int position) {

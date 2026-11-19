@@ -108,7 +108,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
-                android:text="Chạm vào vị tươi\ncủa thiên nhiên."
+                android:text="Trái cây tươi\nmỗi ngày."
                 android:textSize="22sp"
                 android:textStyle="bold"
                 android:lineSpacingExtra="3dp"
@@ -137,10 +137,10 @@
         </LinearLayout>
 
         <ImageView
-            android:layout_width="94dp"
-            android:layout_height="104dp"
+            android:layout_width="78dp"
+            android:layout_height="94dp"
             android:layout_marginStart="8dp"
-            android:padding="12dp"
+            android:padding="8dp"
             android:background="@drawable/bg_fruit_icon"
             android:src="@drawable/fruit_apple"
             android:scaleType="fitCenter"
@@ -191,6 +191,17 @@
             android:background="@drawable/bg_brand_chip" />
     </LinearLayout>
 
+    <!-- Trạng thái tải dữ liệu cho người dùng: không tạo request Firebase mới. -->
+    <TextView
+        android:id="@+id/tvFruitStatus"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="24dp"
+        android:paddingVertical="14dp"
+        android:text="Đang tải danh sách trái cây..."
+        android:textColor="@color/text_secondary"
+        android:textSize="13sp" />
+
     <!-- Home và Detail dùng chung ProductAdapter, mỗi item có ảnh, tên, giá. -->
     <ListView
         android:id="@+id/listView"
@@ -215,6 +226,7 @@
         android:elevation="12dp"
         app:menu="@menu/bottom_nav_menu"
         app:labelVisibilityMode="labeled"
+        app:itemActiveIndicatorColor="@color/brand_soft"
         app:itemIconTint="@color/nav_item_tint"
         app:itemTextColor="@color/nav_item_tint" />
 </LinearLayout>

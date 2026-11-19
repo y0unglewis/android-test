@@ -140,6 +140,7 @@
         android:elevation="12dp"
         app:menu="@menu/bottom_nav_menu"
         app:labelVisibilityMode="labeled"
+        app:itemActiveIndicatorColor="@color/brand_soft"
         app:itemIconTint="@color/nav_item_tint"
         app:itemTextColor="@color/nav_item_tint" />
 </LinearLayout>
